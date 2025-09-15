@@ -1,177 +1,135 @@
-# Bizeye Analytics Dashboard v1.0
+# Bizeye Project - Sales Performance & Sentiment Analysis Dashboard
 
-A comprehensive business analytics dashboard built with React and Flask, featuring sales performance analysis, sentiment analysis, and predictive analytics.
+A comprehensive dashboard for analyzing sales performance and customer sentiment from product reviews.
 
-## 🚀 Features
+## Features
 
-### 📊 Sales Performance Analysis
-- Interactive line charts showing sales trends over time
-- Bar charts for sales comparison across categories
-- Quarterly performance metrics with growth percentages
-- Category-based filtering for detailed analysis
-
-### 💭 Sentiment Analysis
-- Real-time sentiment analysis of product reviews
-- Interactive pie charts showing sentiment distribution
-- Comprehensive review analysis table with sorting and filtering
-- Category-specific sentiment insights
-
-### 🔮 Predictive Analytics
-- AI-powered sales forecasting
-- Risk analysis and insights
-- Category performance predictions
-- Interactive charts and visualizations
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **React 18** - Modern React with hooks
-- **Material-UI** - Professional UI components
-- **Chart.js** - Interactive data visualization
-- **React Router** - Client-side routing
-- **Axios** - HTTP client for API calls
-
-### Backend
-- **Flask** - Python web framework
-- **Pandas** - Data manipulation and analysis
-- **NLTK** - Natural language processing for sentiment analysis
-- **NumPy** - Numerical computing
-- **CORS** - Cross-origin resource sharing
-
-## 📁 Project Structure
-
-```
-bizeye-project/
-├── front-end/                 # React frontend application
-│   ├── src/
-│   │   ├── layouts/          # Page layouts and components
-│   │   ├── examples/         # Reusable UI components
-│   │   ├── services/         # API service layer
-│   │   └── utils/            # Utility functions
-│   └── package.json
-├── back-end/                  # Flask backend application
-│   ├── app.py                 # Main Flask application
-│   ├── requirements.txt      # Python dependencies
-│   ├── Sales forecasting/    # Sales analytics modules
-│   └── sentimental analysis/ # Sentiment analysis modules
-└── README.md
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v14 or higher)
-- Python 3.8+
-- npm or yarn
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/bizeye-analytics-dashboard.git
-   cd bizeye-analytics-dashboard
-   ```
-
-2. **Backend Setup**
-   ```bash
-   cd back-end
-   pip install -r requirements.txt
-   python app.py
-   ```
-   The backend will run on `http://localhost:5000`
-
-3. **Frontend Setup**
-   ```bash
-   cd front-end
-   npm install
-   npm start
-   ```
-   The frontend will run on `http://localhost:3001`
-
-### Quick Start Script
-```bash
-# Run both frontend and backend
-./start.sh
-```
-
-## 📊 API Endpoints
-
-### Sales Analysis
-- `GET /api/sales/analysis` - Get sales analysis data
-- `GET /api/sales/charts` - Get chart data
-- `GET /api/sales/comparison` - Get sales comparison data
+### Sales Performance
+- **Sales Performance Over Time**: Line chart showing historical sales trends
+- **Sales Performance Comparison**: Bar chart comparing historical vs recent performance
+- **Quarterly Analysis**: Detailed quarterly breakdown with growth percentages
+- **Category Filtering**: Filter data by product categories
 
 ### Sentiment Analysis
-- `GET /api/sentiment/reviews` - Get sentiment reviews
+- **Product Reviews Cards**: Four cards showing Positive, Neutral, Negative, and Total Reviews
+- **Interactive Pie Chart**: Beautiful pie chart with category-based filtering
+- **Product Review Table**: Detailed table with sorting and filtering capabilities
+- **Real-time Updates**: All charts and data update based on selected categories
+
+## Quick Start
+
+### Option 1: Use Startup Scripts (Recommended)
+```bash
+# Linux/Mac
+./start.sh
+
+# Windows
+start.bat
+```
+
+### Option 2: Manual Setup
+
+#### Prerequisites
+- Python 3.8+
+- Node.js 16+
+- npm
+
+### Backend Setup
+```bash
+cd back-end
+pip install -r requirements.txt
+python app.py
+```
+Backend will run on http://localhost:5000
+
+### Frontend Setup
+```bash
+cd front-end
+npm install
+npm start
+```
+Frontend will run on http://localhost:3000
+
+## Usage
+
+1. **Upload Dataset**: Use the "Import Dataset" button to upload a CSV file
+2. **Select Category**: Use the dropdown in the top-right to filter by category
+3. **View Analytics**: All charts and data will update automatically
+4. **Clear Data**: Use "Remove Dataset" to clear all data
+
+## Dataset Format
+
+Your CSV file should contain these columns:
+- `product_id`: Unique product identifier
+- `product_name`: Name of the product
+- `product_category`: Category (Electronics, Clothing, etc.)
+- `review_content`: Customer review text
+- `sales_data`: Sales information (for sales charts)
+
+## API Endpoints
+
 - `GET /api/sentiment/categories` - Get available categories
-- `POST /api/sentiment/analyze` - Analyze sentiment
+- `GET /api/sentiment/analyze` - Get sentiment analysis results
+- `GET /api/sentiment/reviews` - Get detailed review data
+- `POST /api/data/upload` - Upload dataset
+- `POST /api/data/clear` - Clear dataset
 
-### Data Management
-- `POST /api/upload` - Upload dataset
-- `GET /api/data/status` - Check data status
-- `DELETE /api/data/clear` - Clear dataset
+## Troubleshooting
 
-## 🎯 Key Features
+- **Backend not starting**: Check if port 5000 is available
+- **Frontend not loading**: Check if port 3000 is available
+- **Data not showing**: Ensure dataset is uploaded and backend is running
+- **Charts not updating**: Check browser console for errors
 
-### Interactive Dashboard
-- Real-time data visualization
-- Category-based filtering
-- Responsive design for all devices
-- Modern Material Design UI
+## Project Structure
 
-### Data Processing
-- Automatic sentiment analysis using NLTK VADER
-- Sales forecasting with machine learning
-- Real-time data updates
-- Comprehensive error handling
-
-### User Experience
-- Intuitive navigation
-- Loading states and error handling
-- Snackbar notifications
-- Smooth animations and transitions
-
-## 🔧 Configuration
-
-### Environment Variables
-Create a `.env` file in the frontend directory:
 ```
-REACT_APP_API_BASE_URL=http://localhost:5000/api
+bizeye project/
+├── front-end/                 # React frontend
+│   ├── src/
+│   │   └── layouts/dashboard/ # Main dashboard components
+│   └── package.json
+├── back-end/                  # Flask backend
+│   ├── app.py                # Main Flask application
+│   ├── sentimental analysis/ # Sentiment analysis module
+│   └── requirements.txt
+└── README.md                 # This file
 ```
 
-### Backend Configuration
-The Flask app runs on port 5000 by default. Modify `app.py` to change the port.
+## Recent Updates
 
-## 📈 Usage
+- ✅ Fixed sentiment analysis accuracy ("very low quality" now correctly classified as negative)
+- ✅ Enhanced pie chart with bigger size (380x380px)
+- ✅ Added professional white backgrounds with greyish-white outer background
+- ✅ Improved category filtering and real-time updates
+- ✅ Added quarterly analysis with growth percentages
+- ✅ Cleaned up unnecessary files and optimized project structure
+- ✅ Added startup scripts for easy deployment
+- ✅ Enhanced .gitignore for better version control
 
-1. **Upload Dataset**: Use the "Import Dataset" button to upload your sales and review data
-2. **View Analytics**: Navigate through different sections to see various analytics
-3. **Filter Data**: Use category dropdowns to filter data by specific categories
-4. **Export Data**: Use the export functionality to download analysis results
+## Screenshots
 
-## 🤝 Contributing
+The dashboard includes:
+- **Sales Performance Charts**: Historical trends and comparisons
+- **Quarterly Analysis**: Growth metrics and performance indicators
+- **Sentiment Analysis Cards**: Real-time sentiment statistics
+- **Interactive Pie Chart**: Beautiful visualization with category filtering
+- **Product Review Table**: Comprehensive data with sorting and filtering
+
+## Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
-## 📝 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Material Dashboard for React components
-- Chart.js for data visualization
-- NLTK for sentiment analysis
-- Flask community for backend framework
-
-## 📞 Support
-
-For support, email support@bizeye.com or create an issue in the repository.
+This project is open source and available under the MIT License.
 
 ---
 
-**Bizeye Analytics Dashboard** - Making data-driven decisions easier! 📊✨
+**Note**: Make sure both backend and frontend are running for full functionality!
+
+**Need Help?** Check the troubleshooting section above or create an issue in the repository.# bizeye-analytics-dashboard
