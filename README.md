@@ -1,164 +1,177 @@
-# BizEye - Business Intelligence Dashboard
+# Bizeye Analytics Dashboard v1.0
 
-A comprehensive business intelligence dashboard that provides sentiment analysis, sales analytics, and predictive insights for product reviews and sales data.
+A comprehensive business analytics dashboard built with React and Flask, featuring sales performance analysis, sentiment analysis, and predictive analytics.
 
-## Features
+## 🚀 Features
 
-- **Sentiment Analysis**: Analyze customer reviews to understand product sentiment
-- **Sales Analytics**: Track sales performance and trends
-- **Predictive Analysis**: AI-powered forecasting and risk assessment
-- **Data Import**: Upload CSV datasets for analysis
-- **Real-time Dashboard**: Interactive charts and visualizations
+### 📊 Sales Performance Analysis
+- Interactive line charts showing sales trends over time
+- Bar charts for sales comparison across categories
+- Quarterly performance metrics with growth percentages
+- Category-based filtering for detailed analysis
 
-## Quick Start
+### 💭 Sentiment Analysis
+- Real-time sentiment analysis of product reviews
+- Interactive pie charts showing sentiment distribution
+- Comprehensive review analysis table with sorting and filtering
+- Category-specific sentiment insights
 
-### Prerequisites
+### 🔮 Predictive Analytics
+- AI-powered sales forecasting
+- Risk analysis and insights
+- Category performance predictions
+- Interactive charts and visualizations
 
-- Python 3.8 or higher
-- Node.js 16 or higher
-- npm or yarn
+## 🛠️ Tech Stack
 
-### Installation & Running
+### Frontend
+- **React 18** - Modern React with hooks
+- **Material-UI** - Professional UI components
+- **Chart.js** - Interactive data visualization
+- **React Router** - Client-side routing
+- **Axios** - HTTP client for API calls
 
-1. **Clone or download the project**
-2. **Run the startup script**:
-   ```bash
-   chmod +x start.sh
-   ./start.sh
-   ```
+### Backend
+- **Flask** - Python web framework
+- **Pandas** - Data manipulation and analysis
+- **NLTK** - Natural language processing for sentiment analysis
+- **NumPy** - Numerical computing
+- **CORS** - Cross-origin resource sharing
 
-This will automatically:
-- Install Python dependencies
-- Install Node.js dependencies  
-- Start the backend server (port 5000)
-- Start the frontend server (port 3000)
-
-### Manual Setup (Alternative)
-
-**Backend Setup:**
-```bash
-cd back-end
-pip install -r requirements.txt
-python app.py
-```
-
-**Frontend Setup:**
-```bash
-cd front-end
-npm install
-npm start
-```
-
-## Usage
-
-1. **Access the Dashboard**: Open http://localhost:3000/dashboard
-2. **Import Dataset**: Click "Import dataset" button in the top-right corner
-3. **Upload CSV**: Upload your sales/reviews CSV file
-4. **View Analysis**: The dashboard will automatically analyze your data
-
-## Dataset Format
-
-Your CSV file should contain the following columns:
-- `Product ID`: Unique product identifier
-- `Product Name`: Name of the product
-- `Product Category`: Category of the product
-- `Rating`: Customer rating (1-5)
-- `Reviews`: Customer review text
-- `Date`: Transaction date
-- `Region`: Sales region
-- `Units Sold`: Number of units sold
-- `Unit Price`: Price per unit
-- `Total Revenue`: Total revenue for the transaction
-
-## API Endpoints
-
-### Data Management
-- `POST /api/data/upload` - Upload dataset
-- `POST /api/data/load-default` - Load default dataset
-- `GET /api/data/status` - Get data status
-
-### Sentiment Analysis
-- `GET /api/sentiment/analyze` - Get sentiment analysis results
-- `GET /api/sentiment/reviews` - Get paginated reviews with sentiment
-
-### Sales Analysis
-- `GET /api/sales/analyze` - Get sales metrics
-- `GET /api/sales/chart-data` - Get sales chart data
-- `GET /api/sales/comparison-data` - Get sales comparison data
-
-### Predictive Analysis
-- `GET /api/predictive/forecast` - Get sales forecast
-- `GET /api/predictive/category-performance` - Get category performance
-- `GET /api/predictive/risks` - Get predicted risks
-- `GET /api/predictive/insights` - Get AI insights
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 bizeye-project/
-├── back-end/
-│   ├── app.py                 # Main Flask application
-│   ├── requirements.txt       # Python dependencies
-│   ├── Online_Sales&reviews_Data.csv  # Sample dataset
-│   ├── Sales forecasting/     # Sales analytics modules
-│   └── sentimental analysis/  # Sentiment analysis modules
-├── front-end/
+├── front-end/                 # React frontend application
 │   ├── src/
-│   │   ├── layouts/
-│   │   │   ├── dashboard/     # Dashboard components
-│   │   │   └── predictive-analysis/  # Predictive analysis components
-│   │   └── services/
-│   │       └── apiService.js  # API service layer
+│   │   ├── layouts/          # Page layouts and components
+│   │   ├── examples/         # Reusable UI components
+│   │   ├── services/         # API service layer
+│   │   └── utils/            # Utility functions
 │   └── package.json
-├── start.sh                   # Startup script
+├── back-end/                  # Flask backend application
+│   ├── app.py                 # Main Flask application
+│   ├── requirements.txt      # Python dependencies
+│   ├── Sales forecasting/    # Sales analytics modules
+│   └── sentimental analysis/ # Sentiment analysis modules
 └── README.md
 ```
 
-## Technologies Used
+## 🚀 Getting Started
 
-**Backend:**
-- Flask (Python web framework)
-- Pandas (Data manipulation)
-- NLTK (Natural language processing)
-- VADER Sentiment Analysis
+### Prerequisites
+- Node.js (v14 or higher)
+- Python 3.8+
+- npm or yarn
 
-**Frontend:**
-- React.js
-- Material-UI
-- Chart.js
-- Axios (HTTP client)
+### Installation
 
-## Troubleshooting
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/bizeye-analytics-dashboard.git
+   cd bizeye-analytics-dashboard
+   ```
 
-**Port Already in Use:**
-- Backend (port 5000): Stop any Flask applications
-- Frontend (port 3000): Stop any React development servers
+2. **Backend Setup**
+   ```bash
+   cd back-end
+   pip install -r requirements.txt
+   python app.py
+   ```
+   The backend will run on `http://localhost:5000`
 
-**Python Dependencies:**
+3. **Frontend Setup**
+   ```bash
+   cd front-end
+   npm install
+   npm start
+   ```
+   The frontend will run on `http://localhost:3001`
+
+### Quick Start Script
 ```bash
-pip install --upgrade pip
-pip install -r back-end/requirements.txt
+# Run both frontend and backend
+./start.sh
 ```
 
-**Node Dependencies:**
-```bash
-cd front-end
-npm install --legacy-peer-deps
+## 📊 API Endpoints
+
+### Sales Analysis
+- `GET /api/sales/analysis` - Get sales analysis data
+- `GET /api/sales/charts` - Get chart data
+- `GET /api/sales/comparison` - Get sales comparison data
+
+### Sentiment Analysis
+- `GET /api/sentiment/reviews` - Get sentiment reviews
+- `GET /api/sentiment/categories` - Get available categories
+- `POST /api/sentiment/analyze` - Analyze sentiment
+
+### Data Management
+- `POST /api/upload` - Upload dataset
+- `GET /api/data/status` - Check data status
+- `DELETE /api/data/clear` - Clear dataset
+
+## 🎯 Key Features
+
+### Interactive Dashboard
+- Real-time data visualization
+- Category-based filtering
+- Responsive design for all devices
+- Modern Material Design UI
+
+### Data Processing
+- Automatic sentiment analysis using NLTK VADER
+- Sales forecasting with machine learning
+- Real-time data updates
+- Comprehensive error handling
+
+### User Experience
+- Intuitive navigation
+- Loading states and error handling
+- Snackbar notifications
+- Smooth animations and transitions
+
+## 🔧 Configuration
+
+### Environment Variables
+Create a `.env` file in the frontend directory:
+```
+REACT_APP_API_BASE_URL=http://localhost:5000/api
 ```
 
-**Dataset Issues:**
-- Ensure CSV has proper headers
-- Check that Reviews column contains text data
-- Verify file encoding is UTF-8
+### Backend Configuration
+The Flask app runs on port 5000 by default. Modify `app.py` to change the port.
 
-## Support
+## 📈 Usage
 
-For issues or questions:
-1. Check the console logs for error messages
-2. Verify all dependencies are installed
-3. Ensure dataset format matches requirements
-4. Check network connectivity between frontend and backend
+1. **Upload Dataset**: Use the "Import Dataset" button to upload your sales and review data
+2. **View Analytics**: Navigate through different sections to see various analytics
+3. **Filter Data**: Use category dropdowns to filter data by specific categories
+4. **Export Data**: Use the export functionality to download analysis results
 
-## License
+## 🤝 Contributing
 
-This project is for educational and demonstration purposes.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Material Dashboard for React components
+- Chart.js for data visualization
+- NLTK for sentiment analysis
+- Flask community for backend framework
+
+## 📞 Support
+
+For support, email support@bizeye.com or create an issue in the repository.
+
+---
+
+**Bizeye Analytics Dashboard** - Making data-driven decisions easier! 📊✨
