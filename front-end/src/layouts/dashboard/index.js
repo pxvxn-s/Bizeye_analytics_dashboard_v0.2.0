@@ -24,6 +24,7 @@ import Snackbar from "@mui/material/Snackbar";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import Tooltip from "@mui/material/Tooltip";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -53,6 +54,7 @@ function Dashboard() {
   const [salesData, setSalesData] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [categories, setCategories] = useState([]);
+  const [sentimentData, setSentimentData] = useState(null);
   const [chartData, setChartData] = useState({
     lineChart: {
       labels: [],
@@ -258,20 +260,26 @@ function Dashboard() {
     });
   };
 
-  const handleDatasetUploaded = () => {
-    console.log("Dataset uploaded, refreshing dashboard data...");
-    setDatasetUploadTrigger((prev) => prev + 1);
+  const handleDatasetUploaded = async () => {           
+    console.log("Dataset uploaded, refreshing dashboard data...");           
+    setDatasetUploadTrigger((prev) => prev + 1);  
 
-    // Clear any existing error messages
+    // Clear any existing error messages          
     setError(null);
 
-    // Reload sales analysis with new data
-    loadSalesAnalysis();
+    // Reload sales analysis and categories with new data - wait for completion
+    console.log("🔄 Loading sales analysis and categories...");
+    try {
+      await Promise.all([loadSalesAnalysis(), loadCategories()]);
+      console.log("✅ Sales analysis and categories loaded successfully");
+    } catch (error) {
+      console.error("❌ Error loading sales analysis or categories:", error);
+    }
 
     setSnackbar({
       open: true,
-      message: "Dataset uploaded successfully! Analysis updated.",
-      severity: "success",
+      message: "Dataset uploaded successfully! Analysis updated.",           
+      severity: "success",                        
     });
   };
 
@@ -581,6 +589,367 @@ function Dashboard() {
         {/* Add spacing below performance metrics */}
         <MDBox py={4} />
 
+        {/* Product Reviews Section */}
+        <MDBox mb={3}>
+          <MDTypography variant="h4" fontWeight="medium" color="dark">
+            Product Reviews
+          </MDTypography>
+        </MDBox>
+
+        {/* Sentiment Analysis Cards */}
+        <MDBox mb={3}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={3}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="success"
+                  icon="sentiment_very_satisfied"
+                  title="Positive Reviews"
+                  count={`${sentimentData?.positive_percentage?.toFixed(1) || "0"}%`}
+                  percentage={{
+                    color: "success",
+                    amount: `${Math.round((sentimentData?.positive_percentage || 0) * (sentimentData?.total_reviews || 0) / 100)} reviews`,
+                    label: "satisfied customers",
+                  }}
+                />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={3}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="info"
+                  icon="sentiment_neutral"
+                  title="Neutral Reviews"
+                  count={`${sentimentData?.neutral_percentage?.toFixed(1) || "0"}%`}
+                  percentage={{
+                    color: "info",
+                    amount: `${Math.round((sentimentData?.neutral_percentage || 0) * (sentimentData?.total_reviews || 0) / 100)} reviews`,
+                    label: "neutral feedback",
+                  }}
+                />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={3}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="error"
+                  icon="sentiment_very_dissatisfied"
+                  title="Negative Reviews"
+                  count={`${sentimentData?.negative_percentage?.toFixed(1) || "0"}%`}
+                  percentage={{
+                    color: "error",
+                    amount: `${Math.round((sentimentData?.negative_percentage || 0) * (sentimentData?.total_reviews || 0) / 100)} reviews`,
+                    label: "need attention",
+                  }}
+                />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={3}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="primary"
+                  icon="rate_review"
+                  title="Total Reviews"
+                  count={sentimentData?.total_reviews || "0"}
+                  percentage={{
+                    color: "primary",
+                    amount: selectedCategory === "all" ? "all categories" : selectedCategory,
+                    label: "analyzed",
+                  }}
+                />
+              </MDBox>
+            </Grid>
+          </Grid>
+        </MDBox>
+
+        {/* Sentiment Analysis Pie Chart */}
+        <MDBox mb={3}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Card sx={{ borderRadius: 3, overflow: "hidden", backgroundColor: "#f8f9fa" }}>
+                <MDBox p={4} sx={{ backgroundColor: "#f8f9fa" }}>
+                  <MDTypography variant="h5" fontWeight="bold" color="dark" mb={2} textAlign="center">
+                    Customer Sentiment Overview
+                  </MDTypography>
+                  
+                  {/* Category Information */}
+                  <MDTypography variant="body1" color="text.secondary" mb={3} textAlign="center">
+                    {selectedCategory === "all" ? "All Categories" : `Category: ${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}`}
+                  </MDTypography>
+                  
+                  <Grid container spacing={1} alignItems="center">
+                    {/* Left Side Content */}
+                    <Grid item xs={12} md={3}>
+                      <MDBox
+                        sx={{
+                          background: "white",
+                          borderRadius: 3,
+                          p: 3,
+                          color: "dark",
+                          textAlign: "center",
+                          boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                          border: "1px solid #e0e0e0",
+                        }}
+                      >
+                        <MDTypography variant="h3" fontWeight="bold" mb={1} color="success.main">
+                          {sentimentData?.positive_percentage?.toFixed(1) || "0"}%
+                        </MDTypography>
+                        <MDTypography variant="h6" fontWeight="medium" mb={2} color="dark">
+                          Satisfied Customers
+                        </MDTypography>
+                        <MDTypography variant="body2" color="text.secondary">
+                          Excellent product quality and outstanding customer service experience
+                        </MDTypography>
+                      </MDBox>
+                    </Grid>
+
+                    {/* Pie Chart */}
+                    <Grid item xs={12} md={6}>
+                      <MDBox display="flex" justifyContent="center" alignItems="center" minHeight="420px">
+                        {sentimentData ? (
+                          <MDBox
+                            sx={{
+                              width: 380,
+                              height: 380,
+                              borderRadius: "50%",
+                              background: `conic-gradient(
+                                #4caf50 0deg ${(sentimentData.positive_percentage || 0) * 3.6}deg,
+                                #2196f3 ${(sentimentData.positive_percentage || 0) * 3.6}deg ${((sentimentData.positive_percentage || 0) + (sentimentData.neutral_percentage || 0)) * 3.6}deg,
+                                #f44336 ${((sentimentData.positive_percentage || 0) + (sentimentData.neutral_percentage || 0)) * 3.6}deg 360deg
+                              )`,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              position: "relative",
+                              boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
+                              border: "10px solid white",
+                              "&::before": {
+                                content: '""',
+                                position: "absolute",
+                                top: -5,
+                                left: -5,
+                                right: -5,
+                                bottom: -5,
+                                borderRadius: "50%",
+                                background: "linear-gradient(45deg, #4caf50, #2196f3, #f44336)",
+                                zIndex: -1,
+                              }
+                            }}
+                          >
+                            <MDBox
+                              sx={{
+                                width: 180,
+                                height: 180,
+                                borderRadius: "50%",
+                                background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                flexDirection: "column",
+                                boxShadow: "inset 0 4px 20px rgba(0,0,0,0.1)",
+                              }}
+                            >
+                              <MDTypography variant="h4" fontWeight="bold" color="dark">
+                                {sentimentData.total_reviews || 0}
+                              </MDTypography>
+                              <MDTypography variant="body2" color="text.secondary" fontWeight="medium">
+                                Total Reviews
+                              </MDTypography>
+                            </MDBox>
+                          </MDBox>
+                        ) : (
+                          <MDBox
+                            sx={{
+                              width: 380,
+                              height: 380,
+                              borderRadius: "50%",
+                              background: "linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              position: "relative",
+                              boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
+                              border: "10px solid white",
+                            }}
+                          >
+                            <MDBox
+                              sx={{
+                                width: 180,
+                                height: 180,
+                                borderRadius: "50%",
+                                background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                flexDirection: "column",
+                                boxShadow: "inset 0 4px 20px rgba(0,0,0,0.1)",
+                              }}
+                            >
+                              <MDTypography variant="h4" fontWeight="bold" color="text.secondary">
+                                0
+                              </MDTypography>
+                              <MDTypography variant="body2" color="text.secondary" fontWeight="medium">
+                                No Data Available
+                              </MDTypography>
+                            </MDBox>
+                          </MDBox>
+                        )}
+                      </MDBox>
+                    </Grid>
+
+                    {/* Right Side Content */}
+                    <Grid item xs={12} md={3}>
+                      <MDBox
+                        sx={{
+                          background: "white",
+                          borderRadius: 3,
+                          p: 3,
+                          color: "dark",
+                          textAlign: "center",
+                          boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                          border: "1px solid #e0e0e0",
+                        }}
+                      >
+                        <MDTypography variant="h3" fontWeight="bold" mb={1} color="error.main">
+                          {sentimentData?.negative_percentage?.toFixed(1) || "0"}%
+                        </MDTypography>
+                        <MDTypography variant="h6" fontWeight="medium" mb={2} color="dark">
+                          Areas for Improvement
+                        </MDTypography>
+                        <MDTypography variant="body2" color="text.secondary">
+                          Customer feedback highlighting opportunities for enhancement
+                        </MDTypography>
+                      </MDBox>
+                    </Grid>
+                  </Grid>
+
+                  {/* Enhanced Legend */}
+                  {sentimentData && (
+                    <MDBox mt={4} display="flex" justifyContent="center" gap={4} flexWrap="wrap">
+                      <MDBox
+                        sx={{
+                          background: "white",
+                          borderRadius: 2,
+                          p: 2,
+                          color: "dark",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1.5,
+                          minWidth: 180,
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+                          border: "1px solid #e0e0e0",
+                        }}
+                      >
+                        <MDBox
+                          sx={{
+                            width: 20,
+                            height: 20,
+                            borderRadius: "50%",
+                            backgroundColor: "#4caf50",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <MDTypography variant="caption" color="white" fontWeight="bold">
+                            ✓
+                          </MDTypography>
+                        </MDBox>
+                        <MDBox>
+                          <MDTypography variant="body2" fontWeight="bold" color="dark">
+                            Satisfied
+                          </MDTypography>
+                          <MDTypography variant="caption" color="text.secondary">
+                            {sentimentData.positive_percentage?.toFixed(1)}% • {Math.round((sentimentData.positive_percentage || 0) * (sentimentData.total_reviews || 0) / 100)} reviews
+                          </MDTypography>
+                        </MDBox>
+                      </MDBox>
+
+                      <MDBox
+                        sx={{
+                          background: "white",
+                          borderRadius: 2,
+                          p: 2,
+                          color: "dark",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1.5,
+                          minWidth: 180,
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+                          border: "1px solid #e0e0e0",
+                        }}
+                      >
+                        <MDBox
+                          sx={{
+                            width: 20,
+                            height: 20,
+                            borderRadius: "50%",
+                            backgroundColor: "#2196f3",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <MDTypography variant="caption" color="white" fontWeight="bold">
+                            ○
+                          </MDTypography>
+                        </MDBox>
+                        <MDBox>
+                          <MDTypography variant="body2" fontWeight="bold" color="dark">
+                            Neutral
+                          </MDTypography>
+                          <MDTypography variant="caption" color="text.secondary">
+                            {sentimentData.neutral_percentage?.toFixed(1)}% • {Math.round((sentimentData.neutral_percentage || 0) * (sentimentData.total_reviews || 0) / 100)} reviews
+                          </MDTypography>
+                        </MDBox>
+                      </MDBox>
+
+                      <MDBox
+                        sx={{
+                          background: "white",
+                          borderRadius: 2,
+                          p: 2,
+                          color: "dark",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1.5,
+                          minWidth: 180,
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+                          border: "1px solid #e0e0e0",
+                        }}
+                      >
+                        <MDBox
+                          sx={{
+                            width: 20,
+                            height: 20,
+                            borderRadius: "50%",
+                            backgroundColor: "#f44336",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <MDTypography variant="caption" color="white" fontWeight="bold">
+                            !
+                          </MDTypography>
+                        </MDBox>
+                        <MDBox>
+                          <MDTypography variant="body2" fontWeight="bold" color="dark">
+                            Needs Attention
+                          </MDTypography>
+                          <MDTypography variant="caption" color="text.secondary">
+                            {sentimentData.negative_percentage?.toFixed(1)}% • {Math.round((sentimentData.negative_percentage || 0) * (sentimentData.total_reviews || 0) / 100)} reviews
+                          </MDTypography>
+                        </MDBox>
+                      </MDBox>
+                    </MDBox>
+                  )}
+                </MDBox>
+              </Card>
+            </Grid>
+          </Grid>
+        </MDBox>
+
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -588,6 +957,8 @@ function Dashboard() {
                 onDatasetCleared={handleDatasetCleared} 
                 onDatasetUploaded={datasetUploadTrigger}
                 selectedCategory={selectedCategory}
+                categories={categories}
+                onSentimentDataUpdate={setSentimentData}
               />
             </Grid>
           </Grid>

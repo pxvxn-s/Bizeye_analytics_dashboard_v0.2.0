@@ -22,15 +22,16 @@ def get_sentiment(text):
     try:
         text_str = str(text).lower()
         
-        # First, check for context-aware positive patterns
+        # First, check for context-aware positive patterns (more specific phrases)
         positive_patterns = [
             'less damage', 'without feeling heavy', 'improved', 'better', 'enhanced',
             'excellent', 'great', 'amazing', 'wonderful', 'fantastic', 'outstanding',
             'perfect', 'love', 'best', 'good', 'quickly', 'easily', 'powerful',
-            'effective', 'hydrating', 'quality', 'control', 'consistent', 'grip',
-            'bounce', 'significantly improved', 'noticeable improvement',
-            'rejuvenated', 'keeps drinks', 'hot/cold for hours', 'natural-looking',
-            'definition', 'feels', 'morning', 'hours', 'classic', 'thought-provoking'
+            'effective', 'hydrating', 'high quality', 'good quality', 'excellent quality',
+            'control', 'consistent', 'grip', 'bounce', 'significantly improved', 
+            'noticeable improvement', 'rejuvenated', 'keeps drinks', 'hot/cold for hours', 
+            'natural-looking', 'definition', 'feels', 'morning', 'hours', 'classic', 
+            'thought-provoking'
         ]
         
         # Check for specific positive phrases that should override neutral classification
@@ -49,26 +50,28 @@ def get_sentiment(text):
             if phrase in text_str:
                 return "neutral"
         
+        # Check for negative patterns FIRST (higher priority than positive)
+        negative_patterns = [
+            'terrible', 'awful', 'horrible', 'bad', 'worst', 'hate', 'disappointed',
+            'broken', 'damaged', 'poor', 'useless', 'waste', 'regret', 'not worth',
+            'very disappointed', 'broke after', 'damaged after', 'low quality',
+            'poor quality', 'terrible quality', 'bad quality', 'worst quality',
+            'very low quality', 'extremely low quality', 'disappointing quality'
+        ]
+        
+        for pattern in negative_patterns:
+            if pattern in text_str:
+                return "negative"
+        
         # Check for positive phrases (higher priority)
         for phrase in positive_phrases:
             if phrase in text_str:
                 return "positive"
         
-        negative_patterns = [
-            'terrible', 'awful', 'horrible', 'bad', 'worst', 'hate', 'disappointed',
-            'broken', 'damaged', 'poor', 'useless', 'waste', 'regret', 'not worth',
-            'very disappointed', 'broke after', 'damaged after'
-        ]
-        
         # Check for positive patterns
         for pattern in positive_patterns:
             if pattern in text_str:
                 return "positive"
-        
-        # Check for negative patterns
-        for pattern in negative_patterns:
-            if pattern in text_str:
-                return "negative"
         
         # If no clear patterns, use VADER with adjusted thresholds
         scores = sia.polarity_scores(text_str)
