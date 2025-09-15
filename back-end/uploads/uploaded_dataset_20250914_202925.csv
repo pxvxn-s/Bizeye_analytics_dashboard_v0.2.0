@@ -1,0 +1,238 @@
+Product ID,Transaction ID,Date,Product Category,Product Name,Units Sold,Unit Price,Total Revenue,Region,Payment Method,Rating,Reviews
+P001,10001,2024-01-01,Electronics,iPhone 14 Pro,2,999.99,1999.98,North America,Credit Card,4,Excellent quality and value. Highly recommend.
+P002,10002,2024-01-02,Home Appliances,Dyson V11 Vacuum,1,499.99,499.99,Europe,PayPal,3,It works as described, but the quality is just so-so.
+P003,10003,2024-01-03,Clothing,Levi's 501 Jeans,3,69.99,209.97,Asia,Debit Card,5,Works perfectly and is incredibly well-made.
+P004,10004,2024-01-04,Books,The Da Vinci Code,4,15.99,63.96,North America,Credit Card,5,Brilliant! I would definitely buy this again.
+P005,10005,2024-01-05,Beauty Products,Neutrogena Skincare Set,1,89.99,89.99,Europe,PayPal,4,Absolutely fantastic! Exceeded all my expectations.
+P006,10006,2024-01-06,Sports,Nike Air Max 270,2,150.0,300.0,Asia,Credit Card,4,Top-notch quality. You won't be disappointed.
+P007,10007,2024-01-07,Electronics,Samsung Galaxy S22,1,799.99,799.99,North America,Debit Card,4,Excellent quality and value. Highly recommend.
+P008,10008,2024-01-08,Home Appliances,Keurig K-Elite Coffee Maker,1,129.99,129.99,Europe,PayPal,5,Brilliant! I would definitely buy this again.
+P009,10009,2024-01-09,Clothing,Adidas Ultraboost,2,180.0,360.0,Asia,Credit Card,4,I'm so happy with this. It's exactly what I wanted.
+P010,10010,2024-01-10,Books,To Kill a Mockingbird,5,12.99,64.95,North America,Credit Card,4,Love it! The design is great and it's very effective.
+P011,10011,2024-01-11,Beauty Products,Fenty Beauty Foundation,1,36.0,36.0,Europe,PayPal,5,Brilliant! I would definitely buy this again.
+P012,10012,2024-01-12,Sports,Yoga Mat,3,29.99,89.97,Asia,Debit Card,5,I'm so happy with this. It's exactly what I wanted.
+P013,10013,2024-01-13,Electronics,Apple Watch Series 8,1,399.0,399.0,North America,Credit Card,5,A truly wonderful product. I'm very impressed.
+P014,10014,2024-01-14,Home Appliances,Instant Pot Duo,1,89.99,89.99,Europe,Credit Card,5,Top-notch quality. You won't be disappointed.
+P015,10015,2024-01-15,Clothing,Patagonia Better Sweater,1,139.0,139.0,Asia,PayPal,4,A perfect product. Does everything it promises.
+P016,10016,2024-01-16,Books,1984 by George Orwell,4,9.99,39.96,North America,Debit Card,4,Absolutely fantastic! Exceeded all my expectations.
+P017,10017,2024-01-17,Beauty Products,La Mer Moisturizing Cream,1,190.0,190.0,Europe,Credit Card,4,A truly wonderful product. I'm very impressed.
+P018,10018,2024-01-18,Sports,Lululemon Align Leggings,2,98.0,196.0,Asia,PayPal,5,A perfect product. Does everything it promises.
+P019,10019,2024-01-19,Electronics,Sony WH-1000XM5 Headphones,1,399.99,399.99,North America,Credit Card,4,Love it! The design is great and it's very effective.
+P020,10020,2024-01-20,Home Appliances,Roomba i7+ Robot Vacuum,1,799.99,799.99,Europe,Debit Card,5,Excellent quality and value. Highly recommend.
+P021,10021,2024-01-21,Clothing,Nike Dunk Low,3,110.0,330.0,Asia,Credit Card,2,It's okay. It does the job but nothing special.
+P022,10022,2024-01-22,Books,The Great Gatsby,5,10.0,50.0,North America,PayPal,3,It's okay. It does the job but nothing special.
+P023,10023,2024-01-23,Beauty Products,Dior Addict Lip Glow,1,35.0,35.0,Europe,Credit Card,5,Five stars! The best purchase I've made this year.
+P024,10024,2024-01-24,Sports,Fitbit Charge 5,1,149.95,149.95,Asia,Debit Card,4,Top-notch quality. You won't be disappointed.
+P025,10025,2024-01-25,Electronics,MacBook Air M2,1,1199.0,1199.0,North America,Credit Card,4,Works perfectly and is incredibly well-made.
+P026,10026,2024-01-26,Home Appliances,Air Fryer,2,89.95,179.9,Europe,PayPal,4,Brilliant! I would definitely buy this again.
+P027,10027,2024-01-27,Clothing,The North Face Jacket,1,250.0,250.0,Asia,Credit Card,4,A truly wonderful product. I'm very impressed.
+P028,10028,2024-01-28,Books,Sapiens: A Brief History of Humankind,3,22.0,66.0,North America,Debit Card,3,There are better options out there, but this one is adequate.
+P029,10029,2024-01-29,Beauty Products,Supergoop! Unseen Sunscreen,2,34.0,68.0,Europe,Credit Card,4,Brilliant! I would definitely buy this again.
+P030,10030,2024-01-30,Sports,Peloton Bike,1,1445.0,1445.0,North America,PayPal,5,Love it! The design is great and it's very effective.
+P031,10031,2024-01-31,Electronics,GoPro HERO11 Black,1,499.99,499.99,Europe,Credit Card,5,A truly wonderful product. I'm very impressed.
+P032,10032,2024-02-01,Home Appliances,Blender,3,45.5,136.5,Asia,Debit Card,2,The product is average. Met my basic needs.
+P033,10033,2024-02-02,Clothing,Uniqlo Airism T-shirt,5,19.9,99.5,North America,Credit Card,5,A truly wonderful product. I'm very impressed.
+P034,10034,2024-02-03,Books,Atomic Habits,4,16.99,67.96,Europe,PayPal,4,Love it! The design is great and it's very effective.
+P035,10035,2024-02-04,Beauty Products,The Ordinary Niacinamide,3,6.5,19.5,Asia,Credit Card,5,Works perfectly and is incredibly well-made.
+P036,10036,2024-02-05,Sports,Wilson Evolution Basketball,2,59.99,119.98,North America,Debit Card,5,I'm so happy with this. It's exactly what I wanted.
+P037,10037,2024-02-06,Electronics,Amazon Kindle Paperwhite,1,139.99,139.99,Europe,Credit Card,4,Brilliant! I would definitely buy this again.
+P038,10038,2024-02-07,Home Appliances,Electric Kettle,2,25.0,50.0,Asia,PayPal,4,Excellent quality and value. Highly recommend.
+P039,10039,2024-02-08,Clothing,Dr. Martens 1460 Boots,1,150.0,150.0,North America,Credit Card,4,Top-notch quality. You won't be disappointed.
+P040,10040,2024-02-09,Books,Where the Crawdads Sing,3,14.99,44.97,Europe,Debit Card,5,Excellent quality and value. Highly recommend.
+P041,10041,2024-02-10,Beauty Products,Glow Recipe Watermelon Glow,1,34.0,34.0,Asia,Credit Card,4,A perfect product. Does everything it promises.
+P042,10042,2024-02-11,Sports,Manduka PRO Yoga Mat,1,120.0,120.0,North America,PayPal,3,I have mixed feelings about this product.
+P043,10043,2024-02-12,Electronics,iPad Pro,1,799.0,799.0,Europe,Credit Card,4,I'm so happy with this. It's exactly what I wanted.
+P044,10044,2024-02-13,Home Appliances,Toaster,4,30.0,120.0,Asia,Debit Card,4,Brilliant! I would definitely buy this again.
+P045,10045,2024-02-14,Clothing,H&M Hoodie,3,24.99,74.97,North America,Credit Card,5,Brilliant! I would definitely buy this again.
+P046,10046,2024-02-15,Books,The Silent Patient,2,13.99,27.98,Europe,PayPal,4,A truly wonderful product. I'm very impressed.
+P047,10047,2024-02-16,Beauty Products,Laneige Lip Sleeping Mask,2,22.0,44.0,Asia,Credit Card,4,A perfect product. Does everything it promises.
+P048,10048,2024-02-17,Sports,Gaiam Yoga Block,2,10.99,21.98,North America,Debit Card,5,A truly wonderful product. I'm very impressed.
+P049,10049,2024-02-18,Electronics,Bose SoundLink Revolve,1,199.0,199.0,Europe,Credit Card,5,Five stars! The best purchase I've made this year.
+P050,10050,2024-02-19,Home Appliances,Microwave Oven,1,99.99,99.99,Asia,PayPal,4,Love it! The design is great and it's very effective.
+P051,10051,2024-02-20,Clothing,Zara Dress,1,79.9,79.9,North America,Credit Card,4,Excellent quality and value. Highly recommend.
+P052,10052,2024-02-21,Books,Becoming by Michelle Obama,3,18.99,56.97,Europe,Debit Card,4,A truly wonderful product. I'm very impressed.
+P053,10053,2024-02-22,Beauty Products,Charlotte Tilbury Pillow Talk Lipstick,1,34.0,34.0,Asia,Credit Card,4,Love it! The design is great and it's very effective.
+P054,10054,2024-02-23,Sports,Resistance Bands Set,4,15.95,63.8,North America,PayPal,3,It's okay. It does the job but nothing special.
+P055,10055,2024-02-24,Electronics,DJI Mini 3 Pro Drone,1,759.0,759.0,Europe,Credit Card,5,I'm so happy with this. It's exactly what I wanted.
+P056,10056,2024-02-25,Home Appliances,Coffee Grinder,2,22.5,45.0,Asia,Debit Card,4,A perfect product. Does everything it promises.
+P057,10057,2024-02-26,Clothing,Allbirds Wool Runners,1,95.0,95.0,North America,Credit Card,2,The product is average. Met my basic needs.
+P058,10058,2024-02-27,Books,Educated by Tara Westover,2,15.0,30.0,Europe,PayPal,4,Love it! The design is great and it's very effective.
+P059,10059,2024-02-28,Beauty Products,Tatcha The Water Cream,1,68.0,68.0,Asia,Credit Card,4,I'm so happy with this. It's exactly what I wanted.
+P060,10060,2024-02-29,Sports,Dumbbell Set,1,75.0,75.0,North America,Debit Card,4,Brilliant! I would definitely buy this again.
+P061,10061,2024-03-01,Electronics,Anker Power Bank,3,39.99,119.97,Europe,Credit Card,5,Five stars! The best purchase I've made this year.
+P062,10062,2024-03-02,Home Appliances,Rice Cooker,2,40.0,80.0,Asia,PayPal,4,I'm so happy with this. It's exactly what I wanted.
+P063,10063,2024-03-03,Clothing,Everlane The Day Glove,1,115.0,115.0,North America,Credit Card,2,I have mixed feelings about this product.
+P064,10064,2024-03-04,Books,The Alchemist,5,13.0,65.0,Europe,Debit Card,4,Excellent quality and value. Highly recommend.
+P065,10065,2024-03-05,Beauty Products,CeraVe Hydrating Cleanser,4,14.99,59.96,Asia,Credit Card,5,Five stars! The best purchase I've made this year.
+P066,10066,2024-03-06,Sports,CamelBak Hydration Pack,1,85.0,85.0,North America,PayPal,5,A perfect product. Does everything it promises.
+P067,10067,2024-03-07,Electronics,Logitech MX Master 3S Mouse,1,99.99,99.99,Europe,Credit Card,4,Brilliant! I would definitely buy this again.
+P068,10068,2024-03-08,Home Appliances,Slow Cooker,1,49.99,49.99,Asia,Debit Card,3,It works as described, but the quality is just so-so.
+P069,10069,2024-03-09,Clothing,Gucci Belt,1,460.0,460.0,North America,Credit Card,5,Excellent quality and value. Highly recommend.
+P070,10070,2024-03-10,Books,The Four Agreements,3,7.99,23.97,Europe,PayPal,4,Love it! The design is great and it's very effective.
+P071,10071,2024-03-11,Beauty Products,Drunk Elephant C-Firma Day Serum,1,80.0,80.0,Asia,Credit Card,1,Does not work as advertised. Extremely frustrating.
+P072,10072,2024-03-12,Sports,Spalding NBA Street Basketball,2,24.99,49.98,North America,Debit Card,4,Excellent quality and value. Highly recommend.
+P073,10073,2024-03-13,Electronics,Roku Streaming Stick 4K,2,49.99,99.98,Europe,Credit Card,4,A truly wonderful product. I'm very impressed.
+P074,10074,2024-03-14,Home Appliances,Food Processor,1,120.0,120.0,Asia,PayPal,5,A truly wonderful product. I'm very impressed.
+P075,10075,2024-03-15,Clothing,Ray-Ban Aviator Sunglasses,1,154.0,154.0,North America,Credit Card,4,I'm so happy with this. It's exactly what I wanted.
+P076,10076,2024-03-16,Books,The Hobbit,4,11.5,46.0,Europe,Debit Card,5,A perfect product. Does everything it promises.
+P077,10077,2024-03-17,Beauty Products,Kylie Cosmetics Lip Kit,1,29.0,29.0,Asia,Credit Card,4,A perfect product. Does everything it promises.
+P078,10078,2024-03-18,Sports,Titleist Pro V1 Golf Balls,1,49.99,49.99,North America,PayPal,5,A perfect product. Does everything it promises.
+P079,10079,2024-03-19,Electronics,Nintendo Switch,1,299.99,299.99,Europe,Credit Card,4,Love it! The design is great and it's very effective.
+P080,10080,2024-03-20,Home Appliances,Waffle Maker,2,35.0,70.0,Asia,Debit Card,4,Excellent quality and value. Highly recommend.
+P081,10081,2024-03-21,Clothing,Canada Goose Jacket,1,995.0,995.0,North America,Credit Card,5,Brilliant! I would definitely buy this again.
+P082,10082,2024-03-22,Books,The Catcher in the Rye,3,9.0,27.0,Europe,PayPal,4,Top-notch quality. You won't be disappointed.
+P083,10083,2024-03-23,Beauty Products,IT Cosmetics CC+ Cream,1,39.5,39.5,Asia,Credit Card,4,Works perfectly and is incredibly well-made.
+P084,10084,2024-03-24,Sports,YETI Tundra 45 Cooler,1,299.99,299.99,North America,Debit Card,4,Works perfectly and is incredibly well-made.
+P085,10085,2024-03-25,Electronics,Google Nest Hub,2,99.99,199.98,Europe,Credit Card,4,I'm so happy with this. It's exactly what I wanted.
+P086,10086,2024-03-26,Home Appliances,Hand Mixer,3,20.0,60.0,Asia,PayPal,4,Excellent quality and value. Highly recommend.
+P087,10087,2024-03-27,Clothing,Birkenstock Arizona Sandals,1,135.0,135.0,North America,Credit Card,4,Works perfectly and is incredibly well-made.
+P088,10088,2024-03-28,Books,A Game of Thrones,2,19.99,39.98,Europe,Debit Card,4,Brilliant! I would definitely buy this again.
+P089,10089,2024-03-29,Beauty Products,Morphe Eyeshadow Palette,1,25.0,25.0,Asia,Credit Card,3,Not bad, but not great either. It's just fine.
+P090,10090,2024-03-30,Sports,Osprey Hiking Backpack,1,160.0,160.0,North America,PayPal,5,Five stars! The best purchase I've made this year.
+P091,10091,2024-03-31,Electronics,Canon EOS R6 Camera,1,2499.0,2499.0,Europe,Credit Card,4,A perfect product. Does everything it promises.
+P092,10092,2024-04-01,Home Appliances,Juicer,1,70.0,70.0,Asia,Debit Card,4,I'm so happy with this. It's exactly what I wanted.
+P093,10093,2024-04-02,Clothing,Converse Chuck Taylor,4,55.0,220.0,North America,Credit Card,4,Love it! The design is great and it's very effective.
+P094,10094,2024-04-03,Books,Pride and Prejudice,5,8.0,40.0,Europe,PayPal,4,A truly wonderful product. I'm very impressed.
+P095,10095,2024-04-04,Beauty Products,MAC Ruby Woo Lipstick,2,19.0,38.0,Asia,Credit Card,4,Excellent quality and value. Highly recommend.
+P096,10096,2024-04-05,Sports,Theragun Mini,1,199.0,199.0,North America,Debit Card,4,A truly wonderful product. I'm very impressed.
+P097,10097,2024-04-06,Electronics,Samsung The Frame TV,1,1499.99,1499.99,Europe,Credit Card,4,Works perfectly and is incredibly well-made.
+P098,10098,2024-04-07,Home Appliances,Stand Mixer,1,299.99,299.99,Asia,PayPal,4,Top-notch quality. You won't be disappointed.
+P099,10099,2024-04-08,Clothing,Lululemon Scuba Hoodie,1,118.0,118.0,North America,Credit Card,4,Excellent quality and value. Highly recommend.
+P100,10100,2024-04-09,Books,The Lord of the Rings,2,25.0,50.0,Europe,Debit Card,4,Top-notch quality. You won't be disappointed.
+P101,10101,2024-04-10,Beauty Products,Olaplex No. 3 Hair Perfector,1,28.0,28.0,Asia,Credit Card,4,Excellent quality and value. Highly recommend.
+P102,10102,2024-04-11,Sports,Pickleball Paddle Set,1,65.0,65.0,North America,PayPal,5,Excellent quality and value. Highly recommend.
+P103,10103,2024-04-12,Electronics,Apple AirPods Pro,2,249.0,498.0,Europe,Credit Card,4,A truly wonderful product. I'm very impressed.
+P104,10104,2024-04-13,Home Appliances,Dehumidifier,1,180.0,180.0,Asia,Debit Card,3,Gets the job done, but I wouldn't rave about it.
+P105,10105,2024-04-14,Clothing,Gap T-shirt,6,15.0,90.0,North America,Credit Card,2,I have mixed feelings about this product.
+P106,10106,2024-04-15,Books,Harry Potter and the Sorcerer's Stone,4,12.0,48.0,Europe,PayPal,4,A perfect product. Does everything it promises.
+P107,10107,2024-04-16,Beauty Products,Estee Lauder Advanced Night Repair,1,75.0,75.0,Asia,Credit Card,4,Excellent quality and value. Highly recommend.
+P108,10108,2024-04-17,Sports,Bowflex SelectTech 552 Dumbbells,1,399.0,399.0,North America,Debit Card,5,Brilliant! I would definitely buy this again.
+P109,10109,2024-04-18,Electronics,Microsoft Surface Pro 8,1,1099.99,1099.99,Europe,Credit Card,4,I'm so happy with this. It's exactly what I wanted.
+P110,10110,2024-04-19,Home Appliances,Espresso Machine,1,450.0,450.0,Asia,PayPal,4,Love it! The design is great and it's very effective.
+P111,10111,2024-04-20,Clothing,Vans Old Skool,3,60.0,180.0,North America,Credit Card,5,Five stars! The best purchase I've made this year.
+P112,10112,2024-04-21,Books,Fahrenheit 451,5,10.0,50.0,Europe,Debit Card,4,Brilliant! I would definitely buy this again.
+P113,10113,2024-04-22,Beauty Products,Anastasia Beverly Hills Brow Wiz,2,23.0,46.0,Asia,Credit Card,5,Brilliant! I would definitely buy this again.
+P114,10114,2024-04-23,Sports,Callaway Chrome Soft Golf Balls,1,49.99,49.99,North America,PayPal,5,Excellent quality and value. Highly recommend.
+P115,10115,2024-04-24,Electronics,Dell XPS 15 Laptop,1,1699.99,1699.99,Europe,Credit Card,4,Excellent quality and value. Highly recommend.
+P116,10116,2024-04-25,Home Appliances,Humidifier,1,55.0,55.0,Asia,Debit Card,2,The product is average. Met my basic needs.
+P117,10117,2024-04-26,Clothing,J.Crew Sweater,2,89.5,179.0,North America,Credit Card,1,Fell apart after just one use. Absolute junk.
+P118,10118,2024-04-27,Books,The Martian,3,15.0,45.0,Europe,PayPal,4,I'm so happy with this. It's exactly what I wanted.
+P119,10119,2024-04-28,Beauty Products,NARS Radiant Creamy Concealer,1,30.0,30.0,Asia,Credit Card,3,Gets the job done, but I wouldn't rave about it.
+P120,10120,2024-04-29,Sports,Schwinn Indoor Cycling Bike,1,899.0,899.0,North America,Debit Card,5,Excellent quality and value. Highly recommend.
+P121,10121,2024-04-30,Electronics,HP Envy 6055e Printer,1,129.99,129.99,Europe,Credit Card,1,The quality is shocking. Avoid this product.
+P122,10122,2024-05-01,Home Appliances,Electric Toothbrush,2,79.99,159.98,Asia,PayPal,4,Top-notch quality. You won't be disappointed.
+P123,10123,2024-05-02,Clothing,Madewell Jeans,1,128.0,128.0,North America,Credit Card,4,Love it! The design is great and it's very effective.
+P124,10124,2024-05-03,Books,The Hunger Games,4,12.99,51.96,Europe,Debit Card,2,The product is average. Met my basic needs.
+P125,10125,2024-05-04,Beauty Products,Urban Decay All Nighter Setting Spray,1,33.0,33.0,Asia,Credit Card,4,Absolutely fantastic! Exceeded all my expectations.
+P126,10126,2024-05-05,Sports,TriggerPoint GRID Foam Roller,1,34.95,34.95,North America,PayPal,5,Five stars! The best purchase I've made this year.
+P127,10127,2024-05-06,Electronics,Sonos One Speaker,2,219.0,438.0,Europe,Credit Card,2,The product is average. Met my basic needs.
+P128,10128,2024-05-07,Home Appliances,Water Filter Pitcher,3,29.99,89.97,Asia,Debit Card,4,Top-notch quality. You won't be disappointed.
+P129,10129,2024-05-08,Clothing,Aritzia Melina Pant,1,148.0,148.0,North America,Credit Card,5,Excellent quality and value. Highly recommend.
+P130,10130,2024-05-09,Books,Divergent,3,11.99,35.97,Europe,PayPal,4,I'm so happy with this. It's exactly what I wanted.
+P131,10131,2024-05-10,Beauty Products,FARSÁLI Unicorn Essence,1,54.0,54.0,Asia,Credit Card,5,A truly wonderful product. I'm very impressed.
+P132,10132,2024-05-11,Sports,Garmin Forerunner 245 Music,1,349.99,349.99,North America,Debit Card,4,A perfect product. Does everything it promises.
+P133,10133,2024-05-12,Electronics,PlayStation 5,1,499.99,499.99,Europe,Credit Card,5,A truly wonderful product. I'm very impressed.
+P134,10134,2024-05-13,Home Appliances,Vacuum Sealer,1,60.0,60.0,Asia,PayPal,4,Works perfectly and is incredibly well-made.
+P135,10135,2024-05-14,Clothing,Reformation Dress,1,218.0,218.0,North America,Credit Card,4,Top-notch quality. You won't be disappointed.
+P136,10136,2024-05-15,Books,The Maze Runner,4,10.99,43.96,Europe,Debit Card,5,Works perfectly and is incredibly well-made.
+P137,10137,2024-05-16,Beauty Products,Glossier Boy Brow,3,16.0,48.0,Asia,Credit Card,4,Excellent quality and value. Highly recommend.
+P138,10138,2024-05-17,Sports,TaylorMade SIM2 Max Driver,1,529.99,529.99,North America,PayPal,5,Brilliant! I would definitely buy this again.
+P139,10139,2024-05-18,Electronics,Xbox Series X,1,499.99,499.99,Europe,Credit Card,5,Works perfectly and is incredibly well-made.
+P140,10140,2024-05-19,Home Appliances,Popcorn Maker,2,25.0,50.0,Asia,Debit Card,5,Five stars! The best purchase I've made this year.
+P141,10141,2024-05-20,Clothing,American Eagle Jeans,2,49.95,99.9,North America,Credit Card,3,Not bad, but not great either. It's just fine.
+P142,10142,2024-05-21,Books,The Giver,5,9.99,49.95,Europe,PayPal,4,A truly wonderful product. I'm very impressed.
+P143,10143,2024-05-22,Beauty Products,Becca Shimmering Skin Perfector,1,38.0,38.0,Asia,Credit Card,4,Top-notch quality. You won't be disappointed.
+P144,10144,2024-05-23,Sports,Rawlings Baseball Glove,1,79.95,79.95,North America,Debit Card,5,Five stars! The best purchase I've made this year.
+P145,10145,2024-05-24,Electronics,LG C1 OLED TV,1,1799.99,1799.99,Europe,Credit Card,4,A perfect product. Does everything it promises.
+P146,10146,2024-05-25,Home Appliances,Sous Vide,1,99.0,99.0,Asia,PayPal,4,Excellent quality and value. Highly recommend.
+P147,10147,2024-05-26,Clothing,Old Navy T-shirt,8,8.0,64.0,North America,Credit Card,1,Fell apart after just one use. Absolute junk.
+P148,10148,2024-05-27,Books,The Road by Cormac McCarthy,2,14.0,28.0,Europe,Debit Card,4,I'm so happy with this. It's exactly what I wanted.
+P149,10149,2024-05-28,Beauty Products,Too Faced Better Than Sex Mascara,1,26.0,26.0,Asia,Credit Card,4,Excellent quality and value. Highly recommend.
+P150,10150,2024-05-29,Sports,Trek Marlin 5 Mountain Bike,1,549.99,549.99,North America,PayPal,5,A truly wonderful product. I'm very impressed.
+P151,10151,2024-05-30,Electronics,Amazon Echo Dot,3,49.99,149.97,Europe,Credit Card,4,Brilliant! I would definitely buy this again.
+P152,10152,2024-05-31,Home Appliances,Garment Steamer,2,30.0,60.0,Asia,Debit Card,4,Excellent quality and value. Highly recommend.
+P153,10153,2024-06-01,Clothing,Free People Dress,1,168.0,168.0,North America,Credit Card,5,Excellent quality and value. Highly recommend.
+P154,10154,2024-06-02,Books,Gone Girl,3,13.0,39.0,Europe,PayPal,4,I'm so happy with this. It's exactly what I wanted.
+P155,10155,2024-06-03,Beauty Products,Huda Beauty Desert Dusk Palette,1,65.0,65.0,Asia,Credit Card,4,Love it! The design is great and it's very effective.
+P156,10156,2024-06-04,Sports,Easton Ghost Bat,1,349.99,349.99,North America,Debit Card,5,Five stars! The best purchase I've made this year.
+P157,10157,2024-06-05,Electronics,Fitbit Versa 3,1,229.95,229.95,Europe,Credit Card,4,Works perfectly and is incredibly well-made.
+P158,10158,2024-06-06,Home Appliances,Ice Cream Maker,1,50.0,50.0,Asia,PayPal,4,Works perfectly and is incredibly well-made.
+P159,10159,2024-06-07,Clothing,Urban Outfitters Top,2,39.0,78.0,North America,Credit Card,2,The product is average. Met my basic needs.
+P160,10160,2024-06-08,Books,The Girl on the Train,4,12.0,48.0,Europe,Debit Card,4,Brilliant! I would definitely buy this again.
+P161,10161,2024-06-09,Beauty Products,Milk Makeup Hydro Grip Primer,1,34.0,34.0,Asia,Credit Card,5,Excellent quality and value. Highly recommend.
+P162,10162,2024-06-10,Sports,Bauer Vapor HyperLite Hockey Stick,1,299.99,299.99,North America,PayPal,5,Five stars! The best purchase I've made this year.
+P163,10163,2024-06-11,Electronics,Garmin Dash Cam Mini 2,1,129.99,129.99,Europe,Credit Card,5,Brilliant! I would definitely buy this again.
+P164,10164,2024-06-12,Home Appliances,Bread Maker,1,80.0,80.0,Asia,Debit Card,4,Excellent quality and value. Highly recommend.
+P165,10165,2024-06-13,Clothing,Spanx Faux Leather Leggings,1,98.0,98.0,North America,Credit Card,4,A truly wonderful product. I'm very impressed.
+P166,10166,2024-06-14,Books,Little Fires Everywhere,3,14.0,42.0,Europe,PayPal,4,Top-notch quality. You won't be disappointed.
+P167,10167,2024-06-15,Beauty Products,Kosas Revealer Concealer,1,28.0,28.0,Asia,Credit Card,2,I have mixed feelings about this product.
+P168,10168,2024-06-16,Sports,Black Diamond Climbing Harness,1,59.95,59.95,North America,Debit Card,4,Absolutely fantastic! Exceeded all my expectations.
+P169,10169,2024-06-17,Electronics,TP-Link Archer AX21 Router,1,99.99,99.99,Europe,Credit Card,5,Brilliant! I would definitely buy this again.
+P170,10170,2024-06-18,Home Appliances,Electric Can Opener,2,15.0,30.0,Asia,PayPal,4,A perfect product. Does everything it promises.
+P171,10171,2024-06-19,Clothing,Alo Yoga Moto Legging,1,114.0,114.0,North America,Credit Card,5,Love it! The design is great and it's very effective.
+P172,10172,2024-06-20,Books,The Vanishing Half,2,16.2,32.4,Europe,Debit Card,5,Excellent quality and value. Highly recommend.
+P173,10173,2024-06-21,Beauty Products,Summer Fridays Jet Lag Mask,1,48.0,48.0,Asia,Credit Card,4,Works perfectly and is incredibly well-made.
+P174,10174,2024-06-22,Sports,Burton Custom Snowboard,1,599.95,599.95,North America,PayPal,5,Brilliant! I would definitely buy this again.
+P175,10175,2024-06-23,Electronics,Wyze Cam v3,3,35.98,107.94,Europe,Credit Card,4,A truly wonderful product. I'm very impressed.
+P176,10176,2024-06-24,Home Appliances,Smart Plug,4,12.99,51.96,Asia,Debit Card,4,Brilliant! I would definitely buy this again.
+P177,10177,2024-06-25,Clothing,Gildan T-shirt,10,5.0,50.0,North America,Credit Card,0,Fell apart after just one use. Absolute junk.
+P178,10178,2024-06-26,Books,Circe by Madeline Miller,3,15.99,47.97,Europe,PayPal,4,Excellent quality and value. Highly recommend.
+P179,10179,2024-06-27,Beauty Products,Ilia Super Serum Skin Tint,1,48.0,48.0,Asia,Credit Card,5,Love it! The design is great and it's very effective.
+P180,10180,2024-06-28,Sports,Petzl Grigri Belay Device,1,109.95,109.95,North America,Debit Card,5,Excellent quality and value. Highly recommend.
+P181,10181,2024-06-29,Electronics,Elgato Stream Deck,1,149.99,149.99,Europe,Credit Card,4,I'm so happy with this. It's exactly what I wanted.
+P182,10182,2024-06-30,Home Appliances,Smart Light Bulbs,4,39.99,159.96,Asia,PayPal,5,Works perfectly and is incredibly well-made.
+P183,10183,2024-07-01,Clothing,Champion Sweatshirt,2,50.0,100.0,North America,Credit Card,5,Works perfectly and is incredibly well-made.
+P184,10184,2024-07-02,Books,The Song of Achilles,2,14.99,29.98,Europe,Debit Card,4,Works perfectly and is incredibly well-made.
+P185,10185,2024-07-03,Beauty Products,Rare Beauty Soft Pinch Liquid Blush,1,20.0,20.0,Asia,Credit Card,5,Works perfectly and is incredibly well-made.
+P186,10186,2024-07-04,Sports,La Sportiva Solution Climbing Shoes,1,180.0,180.0,North America,PayPal,5,Excellent quality and value. Highly recommend.
+P187,10187,2024-07-05,Electronics,Blue Yeti USB Microphone,1,129.99,129.99,Europe,Credit Card,2,Decent for the price, but could be better.
+P188,10188,2024-07-06,Home Appliances,Air Purifier,1,150.0,150.0,Asia,Debit Card,4,Love it! The design is great and it's very effective.
+P189,10189,2024-07-07,Clothing,Carhartt Beanie,3,16.99,50.97,North America,Credit Card,4,Love it! The design is great and it's very effective.
+P190,10190,2024-07-08,Books,Normal People by Sally Rooney,3,13.0,39.0,Europe,PayPal,4,Top-notch quality. You won't be disappointed.
+P191,10191,2024-07-09,Beauty Products,Saie Slip Tint,1,32.0,32.0,Asia,Credit Card,4,Absolutely fantastic! Exceeded all my expectations.
+P192,10192,2024-07-10,Sports,Hydro Flask Wide Mouth Bottle,1,44.95,44.95,North America,Debit Card,4,Works perfectly and is incredibly well-made.
+P193,10193,2024-07-11,Electronics,Netgear Nighthawk Router,1,199.99,199.99,Europe,Credit Card,2,The product is average. Met my basic needs.
+P194,10194,2024-07-12,Home Appliances,Robot Mop,1,250.0,250.0,Asia,PayPal,4,Works perfectly and is incredibly well-made.
+P195,10195,2024-07-13,Clothing,Fjallraven Kanken Backpack,1,80.0,80.0,North America,Credit Card,5,A truly wonderful product. I'm very impressed.
+P196,10196,2024-07-14,Books,The Midnight Library,2,15.6,31.2,Europe,Debit Card,4,Absolutely fantastic! Exceeded all my expectations.
+P197,10197,2024-07-15,Beauty Products,Tower 28 SOS Daily Rescue Facial Spray,1,28.0,28.0,Asia,Credit Card,5,Five stars! The best purchase I've made this year.
+P198,10198,2024-07-16,Sports,Arc'teryx Beta AR Jacket,1,599.0,599.0,North America,PayPal,5,Love it! The design is great and it's very effective.
+P199,10199,2024-07-17,Electronics,SteelSeries Apex Pro Keyboard,1,199.99,199.99,Europe,Credit Card,3,It's a functional item, but lacks any premium feel.
+P200,10200,2024-07-18,Home Appliances,Smart Scale,1,50.0,50.0,Asia,Debit Card,1,Does not work as advertised. Extremely frustrating.
+P201,10201,2024-07-19,Clothing,Herschel Supply Co. Backpack,2,69.99,139.98,North America,Credit Card,5,Five stars! The best purchase I've made this year.
+P202,10202,2024-07-20,Books,Where the Wild Things Are,4,8.99,35.96,Europe,PayPal,4,Top-notch quality. You won't be disappointed.
+P203,10203,2024-07-21,Beauty Products,First Aid Beauty Ultra Repair Cream,1,36.0,36.0,Asia,Credit Card,4,Absolutely fantastic! Exceeded all my expectations.
+P204,10204,2024-07-22,Sports,Thule Pulse Cargo Box,1,549.95,549.95,North America,Debit Card,5,I'm so happy with this. It's exactly what I wanted.
+P205,10205,2024-07-23,Electronics,Razer Viper Ultimate Mouse,1,129.99,129.99,Europe,Credit Card,5,Works perfectly and is incredibly well-made.
+P206,10206,2024-07-24,Home Appliances,Smart Lock,1,229.0,229.0,Asia,PayPal,4,Absolutely fantastic! Exceeded all my expectations.
+P207,10207,2024-07-25,Clothing,Stussy T-shirt,3,40.0,120.0,North America,Credit Card,4,I'm so happy with this. It's exactly what I wanted.
+P208,10208,2024-07-26,Books,The Very Hungry Caterpillar,5,7.99,39.95,Europe,Debit Card,4,Excellent quality and value. Highly recommend.
+P209,10209,2024-07-27,Beauty Products,Farmacy Green Clean Makeup Meltaway Cleansing Balm,1,34.0,34.0,Asia,Credit Card,1,This product did not work at all. A complete waste of money.
+P210,10210,2024-07-28,Sports,Salomon Speedcross 5 Trail Running Shoes,1,130.0,130.0,North America,PayPal,5,Love it! The design is great and it's very effective.
+P211,10211,2024-07-29,Electronics,Beats Studio3 Wireless Headphones,1,349.95,349.95,Europe,Credit Card,2,The product is average. Met my basic needs.
+P212,10212,2024-07-30,Home Appliances,Smart Thermostat,1,249.0,249.0,Asia,Debit Card,5,Love it! The design is great and it's very effective.
+P213,10213,2024-07-31,Clothing,Supreme Box Logo Hoodie,1,698.0,698.0,North America,Credit Card,4,Excellent quality and value. Highly recommend.
+P214,10214,2024-08-01,Books,Goodnight Moon,4,6.99,27.96,Europe,PayPal,4,Excellent quality and value. Highly recommend.
+P215,10215,2024-08-02,Beauty Products,Biossance Squalane + Vitamin C Rose Oil,1,72.0,72.0,Asia,Credit Card,1,A terrible experience. The product is not as described.
+P216,10216,2024-08-03,Sports,Coleman Sundome Tent,1,69.99,69.99,North America,Debit Card,4,I'm so happy with this. It's exactly what I wanted.
+P217,10217,2024-08-04,Electronics,Corsair K70 RGB MK.2 Keyboard,1,169.99,169.99,Europe,Credit Card,4,Absolutely fantastic! Exceeded all my expectations.
+P218,10218,2024-08-05,Home Appliances,Video Doorbell,1,199.99,199.99,Asia,PayPal,5,A truly wonderful product. I'm very impressed.
+P219,10219,2024-08-06,Clothing,Off-White T-shirt,1,350.0,350.0,North America,Credit Card,4,Top-notch quality. You won't be disappointed.
+P220,10220,2024-08-07,Books,Brown Bear, Brown Bear, What Do You See?,5,7.99,39.95,Europe,Debit Card,4,Top-notch quality. You won't be disappointed.
+P221,10221,2024-08-08,Beauty Products,Dyson Airwrap,1,549.99,549.99,Asia,Credit Card,1,The quality is shocking. Avoid this product.
+P222,10222,2024-08-09,Sports,Igloo BMX Cooler,1,149.99,149.99,North America,PayPal,3,It works as described, but the quality is just so-so.
+P223,10223,2024-08-10,Electronics,Samsung Galaxy Watch 4,1,249.99,249.99,Europe,Credit Card,4,Love it! The design is great and it's very effective.
+P224,10224,2024-08-11,Home Appliances,Security Camera,2,99.99,199.98,Asia,Debit Card,5,Excellent quality and value. Highly recommend.
+P225,10225,2024-08-12,Clothing,Fear of God Essentials Hoodie,1,95.0,95.0,North America,Credit Card,5,Brilliant! I would definitely buy this again.
+P226,10226,2024-08-13,Books,The Name of the Wind,2,18.99,37.98,Europe,PayPal,4,Absolutely fantastic! Exceeded all my expectations.
+P227,10227,2024-08-14,Beauty Products,T3 Cura Luxe Hair Dryer,1,285.0,285.0,Asia,Credit Card,5,Brilliant! I would definitely buy this again.
+P228,10228,2024-08-15,Sports,The North Face Recon Backpack,1,99.0,99.0,North America,Debit Card,4,Excellent quality and value. Highly recommend.
+P229,10229,2024-08-16,Electronics,LG Ultrawide Monitor,1,349.99,349.99,Europe,Credit Card,4,I'm so happy with this. It's exactly what I wanted.
+P230,10230,2024-08-17,Home Appliances,Smart Garden,1,199.95,199.95,Asia,PayPal,4,Absolutely fantastic! Exceeded all my expectations.
+P231,10231,2024-08-18,Clothing,Nike Tech Fleece Joggers,2,110.0,220.0,North America,Credit Card,4,Top-notch quality. You won't be disappointed.
+P232,10232,2024-08-19,Books,Dune by Frank Herbert,2,9.99,19.98,North America,Credit Card,0,Does not work as advertised. Extremely frustrating.
+P233,10233,2024-08-20,Beauty Products,Fresh Sugar Lip Treatment,1,24.0,24.0,Europe,PayPal,3,The product is average. Met my basic needs.
+P234,10234,2024-08-21,Sports,Hydro Flask Standard Mouth Water Bottle,3,32.95,98.85,Asia,Credit Card,4,Excellent quality and value. Highly recommend.
+P235,10235,2024-08-22,Electronics,Bose QuietComfort 35 II Wireless Headphones,1,299.0,299.0,North America,Credit Card,5,Five stars! The best purchase I've made this year.
+P236,10236,2024-08-23,Home Appliances,Nespresso Vertuo Next Coffee and Espresso Maker,1,159.99,159.99,Europe,PayPal,0,A complete failure. I had to return it.
+P237,10237,2024-08-24,Clothing,Nike Air Force 1 Sneakers,3,90.0,270.0,Asia,Debit Card,5,A truly wonderful product. I'm very impressed.
