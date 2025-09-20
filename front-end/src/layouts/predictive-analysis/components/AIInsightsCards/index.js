@@ -52,7 +52,7 @@ function AIInsightsCards({ data, salesData, forecastData }) {
         {
           type: "sentiment",
           title: "Customer Satisfaction",
-          value: "0.0%",
+          value: "0.00%",
           description: "Upload a dataset to analyze customer sentiment",
           confidence: "Low",
           confidenceScore: 0,
@@ -85,7 +85,7 @@ function AIInsightsCards({ data, salesData, forecastData }) {
       {
         type: "sentiment",
         title: "Customer Satisfaction",
-        value: "0.0%",
+        value: "0.00%",
         description: `Based on product performance and sales analysis`,
         confidence: "Low",
         confidenceScore: 0,
