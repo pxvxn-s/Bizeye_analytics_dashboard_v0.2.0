@@ -1156,8 +1156,8 @@ def get_ai_insights():
             base_satisfaction = 85.0  # Base satisfaction level
             enhanced_satisfaction = base_satisfaction + (positive_percentage * 0.1) + (neutral_percentage * 0.05)
             
-            # Cap at 99.9% for realistic high satisfaction
-            customer_satisfaction = min(99.9, enhanced_satisfaction)
+            # Cap at 99.9% for realistic high satisfaction and round to 2 decimal places
+            customer_satisfaction = round(min(99.9, enhanced_satisfaction), 2)
             
             insights.append({
                 "type": "sentiment",
