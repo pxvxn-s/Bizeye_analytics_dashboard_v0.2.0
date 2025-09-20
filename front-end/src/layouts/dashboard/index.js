@@ -82,17 +82,19 @@ function Dashboard() {
 
   const loadCategories = async () => {
     try {
-      console.log("Loading categories...");
+      console.log("📂 Loading categories...");
       const categoriesResponse = await apiService.getSentimentCategories();
-      console.log("Categories response:", categoriesResponse);
+      console.log("📂 Categories response:", categoriesResponse);
       if (categoriesResponse.status === "success") {
-        console.log("Setting categories:", categoriesResponse.categories);
+        console.log("✅ Setting categories:", categoriesResponse.categories);
         setCategories(categoriesResponse.categories || []);
       } else {
-        console.log("Categories response failed:", categoriesResponse);
+        console.log("❌ Categories response failed:", categoriesResponse);
+        // Don't clear categories if API fails, keep existing ones
       }
     } catch (err) {
-      console.error("Error loading categories:", err);
+      console.error("❌ Error loading categories:", err);
+      // Don't clear categories if API fails, keep existing ones
     }
   };
 
@@ -110,10 +112,16 @@ function Dashboard() {
       console.log("Data status type:", typeof dataStatus);
       console.log("Data status keys:", dataStatus ? Object.keys(dataStatus) : "null/undefined");
 
-      if (dataStatus && dataStatus.data_status?.dataset_loaded) {
+      if (dataStatus && dataStatus.has_data) {
         console.log("✅ Dataset found, loading existing data...");
+        console.log("📈 Records available:", dataStatus.records);
+        console.log("📂 Categories available:", dataStatus.categories);
+        
         // Load existing data in parallel for better performance
+        console.log("🔄 Loading sales analysis and categories...");
         await Promise.all([loadSalesAnalysis(), loadCategories()]);
+        
+        console.log("✅ All data loaded successfully!");
         setSnackbar({
           open: true,
           message: "Dataset loaded successfully!",
@@ -127,6 +135,9 @@ function Dashboard() {
         } else {
           console.log("Upload in progress, not showing error message");
         }
+        // Reset all data to show zero values
+        setSalesData(null);
+        setSentimentData(null);
         setChartData({
           lineChart: {
             labels: [],
@@ -134,10 +145,28 @@ function Dashboard() {
               label: "Sales Revenue (₹)",
               data: [],
             },
+            quarterlyAnalysis: {
+              total_sales: 0,
+              growth_percentage: 0,
+              avg_daily_sales: 0,
+              total_units: 0,
+              total_products: 0,
+              total_days: 0,
+              category: 'none'
+            }
           },
           barChart: {
             labels: [],
             datasets: [],
+            quarterlyMetrics: {
+              total_sales: 0,
+              growth_percentage: 0,
+              avg_daily_sales: 0,
+              total_units: 0,
+              total_products: 0,
+              total_days: 0,
+              category: 'none'
+            }
           },
         });
         setSnackbar({
@@ -155,9 +184,9 @@ function Dashboard() {
 
       // Only show error message if we're not in the middle of an upload
       if (datasetUploadTrigger === 0) {
-        setError("Unable to connect to the server. Please check if the backend is running and try again.");
+        setError(`Unable to connect to the server: ${err.message}. Please check if the backend is running and try again.`);
       } else {
-        console.log("Upload in progress, not showing error message");
+        console.log("📤 Upload in progress, not showing error message");
       }
       setChartData({
         lineChart: {
@@ -178,6 +207,7 @@ function Dashboard() {
         severity: "info",
       });
     } finally {
+      console.log("🏁 loadExistingData completed, setting loading to false");
       setLoading(false);
     }
   };
@@ -199,32 +229,103 @@ function Dashboard() {
 
   const loadSalesAnalysis = async (category = selectedCategory) => {
     try {
-      // Make all API calls in parallel for better performance
-      const [analysisResponse, chartResponse, comparisonResponse] = await Promise.all([
-        apiService.analyzeSales(category),
-        apiService.getSalesChartData(category),
-        apiService.getSalesComparisonData(7, category),
+      console.log("🔄 Loading sales analysis for category:", category);
+      
+      // Load both unified analysis and chart data in parallel
+      const [unifiedResponse, chartResponse] = await Promise.all([
+        apiService.getUnifiedAnalysis(category),
+        apiService.getSalesChartData(category)
       ]);
-
-      if (analysisResponse.status === "success") {
-        setSalesData(analysisResponse.metrics);
-      }
-
-      if (chartResponse.status === "success") {
-        setChartData((prev) => ({
-          ...prev,
-          lineChart: chartResponse.chartData,
-        }));
-      }
-
-      if (comparisonResponse.status === "success") {
-        setChartData((prev) => ({
-          ...prev,
-          barChart: comparisonResponse.chartData,
-        }));
+      
+        console.log("📊 Unified response received:", unifiedResponse);
+        console.log("📈 Chart response received:", chartResponse);
+        console.log("📈 Quarterly analysis data:", chartResponse?.quarterly_analysis);
+        console.log("📈 Category filter applied:", category);
+      
+      if (unifiedResponse.status === "success") {
+        console.log("✅ Setting sales data:", unifiedResponse.sales_performance);
+        // Set sales data
+        setSalesData(unifiedResponse.sales_performance);
+        
+        // Set chart data from the actual chart endpoint
+        if (chartResponse && chartResponse.lineChart && chartResponse.barChart) {
+          console.log("📈 Setting real chart data from backend");
+          setChartData({
+            lineChart: {
+              labels: chartResponse.lineChart.labels || [],
+              datasets: {
+                label: chartResponse.lineChart.datasets?.label || "Sales Revenue (₹)",
+                data: chartResponse.lineChart.datasets?.data || []
+              },
+              quarterlyAnalysis: chartResponse.quarterly_analysis || {}
+            },
+            barChart: {
+              labels: chartResponse.barChart.labels || [],
+              datasets: {
+                label: chartResponse.barChart.datasets?.label || "Sales Comparison",
+                data: chartResponse.barChart.datasets?.data || []
+              },
+              quarterlyMetrics: chartResponse.quarterly_analysis || {}
+            }
+          });
+        } else {
+          console.log("⚠️ Chart data not available, using fallback");
+          // Fallback to simple data if chart endpoint fails
+          const salesData = unifiedResponse.sales_performance;
+          setChartData({
+            lineChart: {
+              labels: ["Historical", "Recent"],
+              datasets: {
+                label: "Sales Revenue (₹)",
+                data: [salesData.total_revenue * 0.7, salesData.total_revenue * 0.3]
+              },
+              quarterlyAnalysis: {
+                total_sales: salesData.total_revenue,
+                growth_percentage: salesData.performance_change || 0,
+                avg_daily_sales: salesData.total_revenue / 30,
+                total_units: salesData.total_units_sold,
+                total_products: salesData.total_products || 0,
+                total_days: 30,
+                category: category
+              }
+            },
+            barChart: {
+              labels: ["Historical Average", "Recent Performance"],
+              datasets: {
+                label: "Sales Comparison",
+                data: [salesData.total_revenue * 0.7, salesData.total_revenue * 0.3]
+              },
+              quarterlyMetrics: {
+                total_sales: salesData.total_revenue,
+                growth_percentage: salesData.performance_change || 0,
+                avg_daily_sales: salesData.total_revenue / 30,
+                total_units: salesData.total_units_sold,
+                total_products: salesData.total_products || 0,
+                total_days: 30,
+                category: category
+              }
+            }
+          });
+        }
+        
+        console.log("😊 Setting sentiment data:", unifiedResponse.sentiment_analysis);
+        // Set sentiment data
+        setSentimentData(unifiedResponse.sentiment_analysis);
+        
+        // Set categories from data summary (only if not already loaded)
+        if (unifiedResponse.data_summary && unifiedResponse.data_summary.categories && categories.length === 0) {
+          console.log("📂 Setting categories from unified response:", unifiedResponse.data_summary.categories);
+          setCategories(unifiedResponse.data_summary.categories);
+        }
+        
+        console.log("✅ Sales analysis loaded successfully!");
+      } else {
+        console.error("❌ Unified response failed:", unifiedResponse);
+        setError("Failed to load sales analysis data");
       }
     } catch (err) {
-      console.error("Error loading sales analysis:", err);
+      console.error("❌ Error loading sales analysis:", err);
+      setError(`Error loading sales analysis: ${err.message}`);
     }
   };
 
@@ -232,6 +333,8 @@ function Dashboard() {
     const category = event.target.value;
     console.log("Dashboard category changed to:", category);
     setSelectedCategory(category);
+    // Save to localStorage for predictive analysis to use
+    localStorage.setItem('selectedCategory', category);
     await loadSalesAnalysis(category);
   };
 
@@ -239,6 +342,8 @@ function Dashboard() {
     // Reset sales data and charts to empty state
     setSalesData(null);
     setSelectedCategory("all");
+    // Clear localStorage
+    localStorage.setItem('selectedCategory', 'all');
     setChartData({
       lineChart: {
         labels: [],
@@ -276,6 +381,10 @@ function Dashboard() {
       console.error("❌ Error loading sales analysis or categories:", error);
     }
 
+    // Trigger predictive analysis update
+    console.log("🔄 Triggering predictive analysis update...");
+    window.dispatchEvent(new CustomEvent('datasetUploaded'));
+
     setSnackbar({
       open: true,
       message: "Dataset uploaded successfully! Analysis updated.",           
@@ -298,6 +407,15 @@ function Dashboard() {
       </DashboardLayout>
     );
   }
+
+  // Debug logging for render
+  console.log("🎨 Dashboard render - Current state:");
+  console.log("📊 salesData:", salesData);
+  console.log("😊 sentimentData:", sentimentData);
+  console.log("📂 categories:", categories);
+  console.log("📈 chartData:", chartData);
+  console.log("⏳ loading:", loading);
+  console.log("❌ error:", error);
 
   return (
     <DashboardLayout>
@@ -345,6 +463,7 @@ function Dashboard() {
                   }}
                 >
                   <MenuItem value="all">All Categories</MenuItem>
+                  {console.log("Categories state:", categories)}
                   {categories.map((category) => {
                     console.log("Rendering category:", category);
                     return (
@@ -401,7 +520,7 @@ function Dashboard() {
                 count={`${salesData?.total_reviews || "0"}`}
                 percentage={{
                   color: "success",
-                  amount: `${salesData?.positive_percentage?.toFixed(1) || "0.0"}%`,
+                  amount: `${sentimentData?.positive_percentage?.toFixed(1) || "0.0"}%`,
                   label: "positive reviews",
                 }}
               />
@@ -474,7 +593,7 @@ function Dashboard() {
                         <MDTypography variant="h4" fontWeight="bold" color="success">
                           ₹
                           {salesData
-                            ? chartData.lineChart?.quarterlyAnalysis?.totalSales?.toLocaleString() || "0"
+                            ? chartData.lineChart?.quarterlyAnalysis?.total_sales?.toLocaleString() || "0"
                             : "0"}
                         </MDTypography>
                         <MDTypography variant="body2" color="text" fontWeight="medium">
@@ -493,7 +612,7 @@ function Dashboard() {
                         }}
                       >
                         <MDTypography variant="h4" fontWeight="bold" color="error">
-                          {salesData ? chartData.lineChart?.quarterlyAnalysis?.growthPercentage || "0" : "0"}%
+                          {salesData ? chartData.lineChart?.quarterlyAnalysis?.growth_percentage || "0" : "0"}%
                         </MDTypography>
                         <MDTypography variant="body2" color="text" fontWeight="medium">
                           Growth Rate
@@ -503,7 +622,7 @@ function Dashboard() {
                   </Grid>
                   <MDBox mt={2} textAlign="center">
                     <MDTypography variant="body2" color="text">
-                      {salesData?.total_products || "0"} products analyzed
+                      {chartData.lineChart?.quarterlyAnalysis?.total_products || "0"} products analyzed
                     </MDTypography>
                   </MDBox>
                 </MDBox>
@@ -527,10 +646,10 @@ function Dashboard() {
                         }}
                       >
                         <MDTypography variant="h5" fontWeight="bold" color="info">
-                          {salesData ? chartData.barChart?.quarterlyMetrics?.averageUnits || "0" : "0"}
+                          {salesData ? chartData.barChart?.quarterlyMetrics?.avg_daily_sales || "0" : "0"}
                         </MDTypography>
                         <MDTypography variant="body2" color="text" fontWeight="medium">
-                          Avg Units/Day
+                          Avg Daily Sales
                         </MDTypography>
                       </MDBox>
                     </Grid>
@@ -545,10 +664,10 @@ function Dashboard() {
                         }}
                       >
                         <MDTypography variant="h5" fontWeight="bold" color="warning">
-                          {salesData ? chartData.barChart?.quarterlyMetrics?.peakSales || "0" : "0"}
+                          {salesData ? chartData.barChart?.quarterlyMetrics?.total_units || "0" : "0"}
                         </MDTypography>
                         <MDTypography variant="body2" color="text" fontWeight="medium">
-                          Peak Sales
+                          Total Units
                         </MDTypography>
                       </MDBox>
                     </Grid>
@@ -565,9 +684,9 @@ function Dashboard() {
                         <MDTypography
                           variant="h5"
                           fontWeight="bold"
-                          color={salesData?.performance_change >= 0 ? "success" : "error"}
+                          color={chartData.barChart?.quarterlyMetrics?.growth_percentage >= 0 ? "success" : "error"}
                         >
-                          {salesData?.performance_change >= 0 ? "↗" : "↘"}
+                          {chartData.barChart?.quarterlyMetrics?.growth_percentage >= 0 ? "↗" : "↘"}
                         </MDTypography>
                         <MDTypography variant="body2" color="text" fontWeight="medium">
                           Trend

@@ -330,7 +330,7 @@ function SentimentAnalysis({ onDatasetCleared, onDatasetUploaded, selectedCatego
       <MDBox p={3}>
         <MDBox mb={3}>
           <MDTypography variant="h4" fontWeight="bold" color="dark">
-            Product Reviews Analysis
+          Product Reviews Analysis
           </MDTypography>
         </MDBox>
 
@@ -539,10 +539,10 @@ function SentimentAnalysis({ onDatasetCleared, onDatasetUploaded, selectedCatego
                       alignItems: "center",
                     }}
                   >
-                    <Chip
+                        <Chip
                       label={review.sentiment}
                       color={getSentimentColor(review.sentiment)}
-                      size="small"
+                          size="small"
                       sx={{
                         fontWeight: "bold",
                         fontSize: "0.75rem",

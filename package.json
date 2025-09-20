@@ -1,0 +1,43 @@
+{
+  "name": "bizeye",
+  "version": "1.0.0",
+  "description": "AI-Powered Business Intelligence Platform",
+  "main": "index.js",
+  "scripts": {
+    "setup": "./setup.sh",
+    "start": "start.bat",
+    "start:windows": "start.bat",
+    "start:powershell": "powershell -ExecutionPolicy Bypass -File start.ps1",
+    "start:backend": "cd back-end && python3 app.py",
+    "start:frontend": "cd front-end && npm start",
+    "install:backend": "cd back-end && pip3 install -r requirements.txt",
+    "install:frontend": "cd front-end && npm install",
+    "build": "cd front-end && npm run build",
+    "test": "cd front-end && npm test",
+    "clean": "rm -rf node_modules front-end/node_modules front-end/build back-end/__pycache__"
+  },
+  "keywords": [
+    "ai",
+    "business-intelligence",
+    "predictive-analytics",
+    "sentiment-analysis",
+    "machine-learning",
+    "react",
+    "flask",
+    "data-visualization"
+  ],
+  "author": "BIZEYE Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/bizeye.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/bizeye/issues"
+  },
+  "homepage": "https://github.com/yourusername/bizeye#readme",
+  "engines": {
+    "node": ">=16.0.0",
+    "python": ">=3.8.0"
+  }
+}

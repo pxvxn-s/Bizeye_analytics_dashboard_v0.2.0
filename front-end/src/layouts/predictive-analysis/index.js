@@ -42,20 +42,23 @@ import Footer from "examples/Footer";
 // Predictive Analysis components
 import SalesForecastChart from "./components/SalesForecastChart";
 import CategoryPerformanceChart from "./components/CategoryPerformanceChart";
-import RiskAnalysisTable from "./components/RiskAnalysisTable";
+import RecommendationSystem from "./components/RecommendationSystem";
 import AIInsightsCards from "./components/AIInsightsCards";
-import FilterPanel from "./components/FilterPanel";
 
-// Services and data
-import { predictionService } from "./services/predictionService";
-import { mockPredictionData } from "./data/mockData";
+// Services
 import apiService from "services/apiService";
 
 function PredictiveAnalysis() {
   // State for filters and data
-  const [timeRange, setTimeRange] = useState("6months");
+  const [timeRange, setTimeRange] = useState("1month");
   const [category, setCategory] = useState("all");
-  const [predictionData, setPredictionData] = useState(mockPredictionData);
+  const [predictionData, setPredictionData] = useState({
+    salesForecast: null,
+    categoryPerformance: null,
+    insights: []
+  });
+  const [selectedRecommendations, setSelectedRecommendations] = useState([]);
+  const [salesData, setSalesData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [snackbar, setSnackbar] = useState({
@@ -64,40 +67,47 @@ function PredictiveAnalysis() {
     severity: "info",
   });
 
-  // Load prediction data on component mount
+  // Load data on initial mount
   useEffect(() => {
     loadPredictionData();
   }, []);
+
+  // Reload data when category changes
+  useEffect(() => {
+    if (category) {
+      loadPredictionData();
+    }
+  }, [category]);
 
   const loadPredictionData = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      // Load all prediction data from backend
-      const [forecastResponse, categoryResponse, risksResponse, insightsResponse] =
+      // Load sales data and prediction data from backend
+      const [salesResponse, forecastResponse, insightsResponse] =
         await Promise.all([
-          apiService.getSalesForecast(),
-          apiService.getCategoryPerformance(),
-          apiService.getPredictedRisks(),
-          apiService.getAIInsights(),
+          apiService.getSalesChartData(category),
+          apiService.getSalesForecastPrediction(30, category),
+          apiService.getAIInsights(category),
         ]);
+
+      // Update sales data
+      if (salesResponse.status === "success") {
+        setSalesData(salesResponse);
+      }
 
       // Update prediction data with backend response
       const updatedData = {
         salesForecast:
           forecastResponse.status === "success"
-            ? forecastResponse.forecastData
-            : mockPredictionData.salesForecast,
-        categoryPerformance:
-          categoryResponse.status === "success"
-            ? categoryResponse.chartData
-            : mockPredictionData.categoryPerformance,
-        risks: risksResponse.status === "success" ? risksResponse.risks : mockPredictionData.risks,
+            ? forecastResponse
+            : null,
+        categoryPerformance: null, // Will be generated from sales data
         insights:
           insightsResponse.status === "success"
             ? insightsResponse.insights
-            : mockPredictionData.insights,
+            : [],
       };
 
       setPredictionData(updatedData);
@@ -109,16 +119,33 @@ function PredictiveAnalysis() {
       });
     } catch (err) {
       console.error("Error loading prediction data:", err);
-      setError("Failed to load prediction data. Using mock data instead.");
+      setError("Failed to load prediction data. Please upload a dataset first.");
 
       setSnackbar({
         open: true,
-        message: "Using mock data. Backend connection failed.",
+        message: "No dataset available. Please upload a dataset to see predictions.",
         severity: "warning",
       });
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleRecommendationSelect = (recommendation) => {
+    setSelectedRecommendations(prev => {
+      const exists = prev.find(rec => rec.id === recommendation.id);
+      if (exists) {
+        return prev.filter(rec => rec.id !== recommendation.id);
+      } else {
+        return [...prev, recommendation];
+      }
+    });
+
+    setSnackbar({
+      open: true,
+      message: `Recommendation "${recommendation.title}" ${selectedRecommendations.find(rec => rec.id === recommendation.id) ? 'removed from' : 'added to'} analysis`,
+      severity: "info",
+    });
   };
 
   const handleFilterChange = async (newTimeRange, newCategory) => {
@@ -178,55 +205,68 @@ function PredictiveAnalysis() {
                 </MDTypography>
               </MDBox>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <MDBox display="flex" justifyContent="flex-end" alignItems="center" gap={2}>
-                <Chip
-                  icon={<Icon>psychology</Icon>}
-                  label="ML Model Active"
-                  color="success"
-                  variant="filled"
-                  sx={{ fontWeight: "medium" }}
-                />
-                <Chip
-                  icon={<Icon>schedule</Icon>}
-                  label="Auto-refresh: 30min"
-                  color="info"
-                  variant="outlined"
-                />
+          </Grid>
+        </MDBox>
+
+        {/* Time Range Display */}
+        <MDBox mb={4}>
+          <Card sx={{ 
+            borderRadius: 3, 
+            boxShadow: 3, 
+            backgroundColor: "warning.main"
+          }}>
+            <CardContent sx={{ p: 3 }}>
+              <MDBox display="flex" alignItems="center" justifyContent="center">
+                <MDTypography variant="h5" fontWeight="bold" color="white">
+                  Analysis Period: Last 1 Month
+                </MDTypography>
+                <Icon sx={{ color: "white", ml: 2, fontSize: 36 }}>trending_up</Icon>
               </MDBox>
+            </CardContent>
+          </Card>
+        </MDBox>
+
+        {/* AI Insights Cards */}
+        <AIInsightsCards 
+          data={predictionData.insights} 
+          salesData={salesData} 
+          forecastData={predictionData.salesForecast}
+        />
+
+        {/* Charts Section */}
+        <MDBox mt={4.5}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} lg={6}>
+              <SalesForecastChart 
+                data={salesData}
+                timeRange={timeRange}
+                selectedCategory={category}
+                salesData={salesData}
+              />
+            </Grid>
+            <Grid item xs={12} lg={6}>
+              <CategoryPerformanceChart
+                category={category}
+                selectedRecommendations={selectedRecommendations}
+                salesData={salesData}
+                timeRange={timeRange}
+              />
             </Grid>
           </Grid>
         </MDBox>
 
-        {/* Filter Panel */}
-        <FilterPanel
-          timeRange={timeRange}
-          category={category}
-          onFilterChange={handleFilterChange}
-        />
-
-        {/* AI Insights Cards */}
-        <AIInsightsCards data={predictionData.insights} />
-
-        {/* Charts Section */}
-        <Grid container spacing={3} mb={4}>
-          <Grid item xs={12} lg={8}>
-            <SalesForecastChart data={predictionData.salesForecast} timeRange={timeRange} />
+        {/* Recommendation System */}
+        <MDBox mt={6}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <RecommendationSystem 
+                data={salesData}
+                selectedCategory={category}
+                onRecommendationSelect={handleRecommendationSelect}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12} lg={4}>
-            <CategoryPerformanceChart
-              data={predictionData.categoryPerformance}
-              category={category}
-            />
-          </Grid>
-        </Grid>
-
-        {/* Risk Analysis Table */}
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <RiskAnalysisTable data={predictionData.risks} />
-          </Grid>
-        </Grid>
+        </MDBox>
       </MDBox>
 
       <Footer />

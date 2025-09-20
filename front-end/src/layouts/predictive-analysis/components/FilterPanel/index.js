@@ -31,19 +31,13 @@ import MDTypography from "components/MDTypography";
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-function FilterPanel({ timeRange, category, onFilterChange }) {
+function FilterPanel({ timeRange, category, onFilterChange, salesData }) {
   const handleTimeRangeChange = (event) => {
     onFilterChange(event.target.value, category);
   };
 
   const handleCategoryChange = (event) => {
     onFilterChange(timeRange, event.target.value);
-  };
-
-  const handleRefresh = () => {
-    // TODO: Connect to prediction API here for manual refresh
-    // predictionService.refreshPredictions();
-    console.log("Manual refresh triggered");
   };
 
   return (
@@ -57,7 +51,7 @@ function FilterPanel({ timeRange, category, onFilterChange }) {
         </MDBox>
 
         <Grid container spacing={3} alignItems="center">
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={4} md={4}>
             <FormControl fullWidth>
               <InputLabel sx={{ color: "text.primary", mb: 1 }}>Time Range</InputLabel>
               <Select
@@ -82,15 +76,13 @@ function FilterPanel({ timeRange, category, onFilterChange }) {
                   },
                 }}
               >
-                <MenuItem value="3months">Last 3 Months</MenuItem>
-                <MenuItem value="6months">Last 6 Months</MenuItem>
-                <MenuItem value="1year">Last Year</MenuItem>
-                <MenuItem value="2years">Last 2 Years</MenuItem>
+                <MenuItem value="1week">Last 1 Week</MenuItem>
+                <MenuItem value="1month">Last 1 Month</MenuItem>
               </Select>
             </FormControl>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={4} md={4}>
             <FormControl fullWidth>
               <InputLabel sx={{ color: "text.primary", mb: 1 }}>Category</InputLabel>
               <Select
@@ -116,43 +108,14 @@ function FilterPanel({ timeRange, category, onFilterChange }) {
                 }}
               >
                 <MenuItem value="all">All Categories</MenuItem>
-                <MenuItem value="electronics">Electronics</MenuItem>
-                <MenuItem value="clothing">Clothing</MenuItem>
-                <MenuItem value="home">Home & Garden</MenuItem>
-                <MenuItem value="sports">Sports</MenuItem>
-                <MenuItem value="books">Books</MenuItem>
+                {(salesData?.data_summary?.categories || ["Electronics", "Clothing", "Home Appliances", "Sports", "Books"]).map((cat) => (
+                  <MenuItem key={cat} value={cat}>{cat}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<Icon sx={{ color: "white" }}>refresh</Icon>}
-              onClick={handleRefresh}
-              fullWidth
-              sx={{
-                borderRadius: 2,
-                color: "white !important",
-                fontWeight: "bold",
-                textTransform: "uppercase",
-                fontSize: "0.875rem",
-                boxShadow: 2,
-                "&:hover": {
-                  boxShadow: 4,
-                  color: "white !important",
-                },
-                "& .MuiButton-startIcon": {
-                  color: "white !important",
-                },
-              }}
-            >
-              Refresh Data
-            </Button>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={4} md={4}>
             <MDBox display="flex" alignItems="center" justifyContent="flex-end">
               <Icon sx={{ color: "success.main", mr: 1 }}>check_circle</Icon>
               <MDTypography variant="body2" color="text">
@@ -168,7 +131,7 @@ function FilterPanel({ timeRange, category, onFilterChange }) {
 
 // Setting default values for the props of FilterPanel
 FilterPanel.defaultProps = {
-  timeRange: "6months",
+  timeRange: "1month",
   category: "all",
 };
 
@@ -177,6 +140,7 @@ FilterPanel.propTypes = {
   timeRange: PropTypes.string,
   category: PropTypes.string,
   onFilterChange: PropTypes.func.isRequired,
+  salesData: PropTypes.object,
 };
 
 export default FilterPanel;

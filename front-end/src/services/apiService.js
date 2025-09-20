@@ -18,6 +18,8 @@ class ApiService {
       headers: {
         "Content-Type": "application/json",
       },
+      mode: 'cors', // Explicitly set CORS mode
+      credentials: 'omit', // Don't send credentials
     };
 
     const config = { ...defaultOptions, ...options };
@@ -29,8 +31,10 @@ class ApiService {
 
     try {
       console.log(`📡 Making request to: ${url}`);
+      console.log(`📡 Request config:`, config);
       const response = await fetch(url, config);
       console.log(`📡 Response status: ${response.status}`);
+      console.log(`📡 Response headers:`, Object.fromEntries(response.headers.entries()));
 
       const data = await response.json();
       console.log(`📡 Response data:`, data);
@@ -42,6 +46,9 @@ class ApiService {
       return data;
     } catch (error) {
       console.error(`❌ API Error for ${url}:`, error);
+      console.error(`❌ Error type:`, error.constructor.name);
+      console.error(`❌ Error message:`, error.message);
+      console.error(`❌ Error stack:`, error.stack);
       throw error;
     }
   }
@@ -150,8 +157,73 @@ class ApiService {
     return this.apiCall("/predictive/risks");
   }
 
-  async getAIInsights() {
-    return this.apiCall("/predictive/insights");
+  async getAIInsights(category = "all") {
+    const params = new URLSearchParams();
+    if (category && category !== "all") params.append("category", category);
+    
+    return this.apiCall(`/predictive/insights?${params}`);
+  }
+
+  async getAIRecommendations(category = "all") {
+    const params = new URLSearchParams();
+    if (category && category !== "all") params.append("category", category);
+    
+    return this.apiCall(`/ai/recommendations?${params}`);
+  }
+
+  // UNIFIED ANALYTICS - ALL-IN-ONE SOLUTION
+  async getUnifiedAnalysis(category = "all") {
+    const params = new URLSearchParams();
+    if (category && category !== "all") params.append("category", category);
+    
+    console.log("🌐 Getting unified analysis for category:", category);
+    const result = await this.apiCall(`/unified-analysis?${params}`);
+    console.log("📡 Unified analysis result:", result);
+    return result;
+  }
+
+  // Individual predictive analytics endpoints (for specific use cases)
+  async getSalesForecastPrediction(daysAhead = 30, category = "all") {
+    const params = new URLSearchParams();
+    params.append("days_ahead", daysAhead);
+    if (category && category !== "all") params.append("category", category);
+    
+    return this.apiCall(`/predictions/sales-forecast?${params}`);
+  }
+
+  async getDemandForecast(daysAhead = 30) {
+    const params = new URLSearchParams();
+    params.append("days_ahead", daysAhead);
+    
+    return this.apiCall(`/predictions/demand-forecast?${params}`);
+  }
+
+  async getInventoryRecommendations(category = "all") {
+    const params = new URLSearchParams();
+    if (category && category !== "all") params.append("category", category);
+    
+    return this.apiCall(`/predictions/inventory-recommendations?${params}`);
+  }
+
+  async getChurnAnalysis() {
+    return this.apiCall("/predictions/churn-analysis");
+  }
+
+  async getPriceOptimization(category = "all") {
+    const params = new URLSearchParams();
+    if (category && category !== "all") params.append("category", category);
+    
+    return this.apiCall(`/predictions/price-optimization?${params}`);
+  }
+
+  async getRiskAssessment() {
+    return this.apiCall("/predictions/risk-assessment");
+  }
+
+  async refreshPredictions() {
+    return this.apiCall("/predictions/refresh", {
+      method: "POST",
+    });
   }
 
   // Data Management API calls

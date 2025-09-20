@@ -14,37 +14,41 @@ Coded by www.creative-tim.com
 */
 
 // Prediction Service for API Integration
-// TODO: Replace with real ML backend API calls
+// Connected to real ML backend API endpoints
 
-const API_BASE_URL = process.env.REACT_APP_PREDICTION_API_URL || "http://localhost:8000/api";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 class PredictionService {
   /**
    * Get sales forecast predictions
-   * TODO: Connect to ML backend endpoint
-   * Expected API: POST /api/predictions/sales-forecast
-   * Request: { timeRange: string, category: string, historicalData: array }
-   * Response: { forecast: array, confidence: array, accuracy: number }
+   * API: GET /api/predictions/sales-forecast
+   * Request: { timeRange: string, category: string, days_ahead: number }
+   * Response: { predictions: array, confidence_intervals: array, model_accuracy: number }
    */
   async getSalesForecast(params) {
     try {
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_BASE_URL}/predictions/sales-forecast`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-      //   },
-      //   body: JSON.stringify(params)
-      // });
-      // return await response.json();
-
-      console.log("Sales forecast API call would be made with params:", params);
-      return {
-        forecast: [95, 110, 125, 140, 155, 170],
-        confidence: [0.85, 0.88, 0.82, 0.79, 0.75, 0.72],
-        accuracy: 0.87,
-      };
+      const queryParams = new URLSearchParams();
+      if (params.timeRange) queryParams.append('days_ahead', this._getDaysFromTimeRange(params.timeRange));
+      if (params.category) queryParams.append('category', params.category);
+      
+      const response = await fetch(`${API_BASE_URL}/predictions/sales-forecast?${queryParams}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      return data;
     } catch (error) {
       console.error("Error fetching sales forecast:", error);
       throw error;
@@ -53,30 +57,34 @@ class PredictionService {
 
   /**
    * Get category performance predictions
-   * TODO: Connect to ML backend endpoint
-   * Expected API: POST /api/predictions/category-performance
+   * API: GET /api/predictions/demand-forecast
    * Request: { category: string, timeRange: string }
-   * Response: { categories: array, performance: array, trends: array }
+   * Response: { category_predictions: object, top_categories: array }
    */
   async getCategoryPerformance(params) {
     try {
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_BASE_URL}/predictions/category-performance`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-      //   },
-      //   body: JSON.stringify(params)
-      // });
-      // return await response.json();
-
-      console.log("Category performance API call would be made with params:", params);
-      return {
-        categories: ["Electronics", "Clothing", "Home", "Sports", "Books"],
-        performance: [85, 72, 68, 91, 45],
-        trends: ["up", "down", "stable", "up", "down"],
-      };
+      const queryParams = new URLSearchParams();
+      if (params.timeRange) queryParams.append('days_ahead', this._getDaysFromTimeRange(params.timeRange));
+      if (params.category) queryParams.append('category', params.category);
+      
+      const response = await fetch(`${API_BASE_URL}/predictions/demand-forecast?${queryParams}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      return data;
     } catch (error) {
       console.error("Error fetching category performance:", error);
       throw error;
@@ -84,41 +92,131 @@ class PredictionService {
   }
 
   /**
-   * Get risk analysis predictions
-   * TODO: Connect to ML backend endpoint
-   * Expected API: GET /api/predictions/risks
-   * Request: { timeRange: string, threshold: number }
-   * Response: { risks: array, summary: object }
+   * Get inventory optimization recommendations
+   * API: GET /api/predictions/inventory-recommendations
+   * Request: { category: string }
+   * Response: { inventory_metrics: object, products_analysis: array, recommendations: object }
+   */
+  async getInventoryRecommendations(params) {
+    try {
+      const queryParams = new URLSearchParams();
+      if (params.category) queryParams.append('category', params.category);
+      
+      const response = await fetch(`${API_BASE_URL}/predictions/inventory-recommendations?${queryParams}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      return data;
+    } catch (error) {
+      console.error("Error fetching inventory recommendations:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get customer churn prediction analysis
+   * API: GET /api/predictions/churn-analysis
+   * Response: { churn_analysis: array, high_risk_products: array, summary: object }
+   */
+  async getChurnAnalysis(params) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/predictions/churn-analysis`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      return data;
+    } catch (error) {
+      console.error("Error fetching churn analysis:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get price optimization recommendations
+   * API: GET /api/predictions/price-optimization
+   * Request: { category: string }
+   * Response: { price_analysis: array, high_impact_opportunities: array }
+   */
+  async getPriceOptimization(params) {
+    try {
+      const queryParams = new URLSearchParams();
+      if (params.category) queryParams.append('category', params.category);
+      
+      const response = await fetch(`${API_BASE_URL}/predictions/price-optimization?${queryParams}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      return data;
+    } catch (error) {
+      console.error("Error fetching price optimization:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get comprehensive risk assessment
+   * API: GET /api/predictions/risk-assessment
+   * Response: { risks: array, risk_summary: object, mitigation_priorities: array }
    */
   async getRiskAnalysis(params) {
     try {
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_BASE_URL}/predictions/risks?${new URLSearchParams(params)}`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-      //   }
-      // });
-      // return await response.json();
-
-      console.log("Risk analysis API call would be made with params:", params);
-      return {
-        risks: [
-          {
-            id: "risk-001",
-            type: "Customer Churn",
-            probability: 85,
-            impact: "High",
-            timeframe: "30 days",
-          },
-        ],
-        summary: {
-          totalRisks: 5,
-          criticalRisks: 1,
-          highRisks: 2,
-          mediumRisks: 2,
-        },
-      };
+      const response = await fetch(`${API_BASE_URL}/predictions/risk-assessment`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      return data;
     } catch (error) {
       console.error("Error fetching risk analysis:", error);
       throw error;
@@ -127,37 +225,33 @@ class PredictionService {
 
   /**
    * Get AI insights and recommendations
-   * TODO: Connect to ML backend endpoint
-   * Expected API: GET /api/predictions/insights
-   * Request: { category: string, timeRange: string }
-   * Response: { insights: array, recommendations: array }
+   * API: GET /api/predictions/comprehensive-analysis
+   * Request: { category: string }
+   * Response: { sales_forecast: object, demand_prediction: object, inventory_recommendations: object, ... }
    */
   async getAIInsights(params) {
     try {
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_BASE_URL}/predictions/insights?${new URLSearchParams(params)}`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-      //   }
-      // });
-      // return await response.json();
-
-      console.log("AI insights API call would be made with params:", params);
-      return {
-        insights: [
-          {
-            type: "growth",
-            title: "Expected Growth",
-            value: "+15.2%",
-            confidence: 92,
-          },
-        ],
-        recommendations: [
-          "Increase inventory for Electronics category",
-          "Implement customer retention program",
-        ],
-      };
+      const queryParams = new URLSearchParams();
+      if (params.category) queryParams.append('category', params.category);
+      
+      const response = await fetch(`${API_BASE_URL}/predictions/comprehensive-analysis?${queryParams}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      return data;
     } catch (error) {
       console.error("Error fetching AI insights:", error);
       throw error;
@@ -166,30 +260,30 @@ class PredictionService {
 
   /**
    * Refresh all predictions
-   * TODO: Connect to ML backend endpoint
-   * Expected API: POST /api/predictions/refresh
-   * Request: { force: boolean }
-   * Response: { status: string, timestamp: string }
+   * API: POST /api/predictions/refresh
+   * Response: { status: string, timestamp: string, model_accuracy: number }
    */
   async refreshPredictions(force = false) {
     try {
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_BASE_URL}/predictions/refresh`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-      //   },
-      //   body: JSON.stringify({ force })
-      // });
-      // return await response.json();
-
-      console.log("Refresh predictions API call would be made with force:", force);
-      return {
-        status: "success",
-        timestamp: new Date().toISOString(),
-        message: "Predictions refreshed successfully",
-      };
+      const response = await fetch(`${API_BASE_URL}/predictions/refresh`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ force })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      return data;
     } catch (error) {
       console.error("Error refreshing predictions:", error);
       throw error;
@@ -198,33 +292,79 @@ class PredictionService {
 
   /**
    * Mitigate a specific risk
-   * TODO: Connect to ML backend endpoint
-   * Expected API: POST /api/predictions/risks/{riskId}/mitigate
+   * API: POST /api/predictions/risks/{riskId}/mitigate
    * Request: { action: string, priority: string }
    * Response: { status: string, mitigationId: string }
    */
   async mitigateRisk(riskId, action) {
     try {
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_BASE_URL}/predictions/risks/${riskId}/mitigate`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-      //   },
-      //   body: JSON.stringify({ action })
-      // });
-      // return await response.json();
-
-      console.log("Mitigate risk API call would be made for risk:", riskId, "with action:", action);
-      return {
-        status: "success",
-        mitigationId: `mitigation-${Date.now()}`,
-        message: "Risk mitigation initiated",
-      };
+      const response = await fetch(`${API_BASE_URL}/predictions/risks/${riskId}/mitigate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ action })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      return data;
     } catch (error) {
       console.error("Error mitigating risk:", error);
       throw error;
+    }
+  }
+
+  /**
+   * Helper method to convert time range to days
+   */
+  _getDaysFromTimeRange(timeRange) {
+    const timeRangeMap = {
+      '3months': 90,
+      '6months': 180,
+      '1year': 365,
+      '30days': 30,
+      '60days': 60,
+      '90days': 90
+    };
+    return timeRangeMap[timeRange] || 30;
+  }
+
+  /**
+   * Get prediction status and health check
+   */
+  async getPredictionStatus() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/predictions/status`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        return {
+          status: 'offline',
+          message: 'Prediction service unavailable',
+          lastUpdate: null
+        };
+      }
+      
+      return await response.json();
+    } catch (error) {
+      return {
+        status: 'offline',
+        message: 'Prediction service unavailable',
+        lastUpdate: null
+      };
     }
   }
 }
@@ -233,38 +373,24 @@ class PredictionService {
 export const predictionService = new PredictionService();
 
 /**
- * BACKEND INTEGRATION GUIDE:
- *
- * To connect this frontend with a real ML backend:
- *
- * 1. Set up your ML backend API endpoints:
- *    - POST /api/predictions/sales-forecast
- *    - POST /api/predictions/category-performance
- *    - GET /api/predictions/risks
- *    - GET /api/predictions/insights
- *    - POST /api/predictions/refresh
- *    - POST /api/predictions/risks/{riskId}/mitigate
- *
- * 2. Update the API_BASE_URL environment variable:
- *    - Add REACT_APP_PREDICTION_API_URL to your .env file
- *    - Set it to your ML backend URL (e.g., "https://your-ml-api.com/api")
- *
- * 3. Implement authentication:
- *    - Add JWT token to localStorage after login
- *    - Include Authorization header in all API calls
- *
- * 4. Handle API responses:
- *    - Update the response parsing in each method
- *    - Add proper error handling for different HTTP status codes
- *    - Implement retry logic for failed requests
- *
- * 5. Add real-time updates:
- *    - Implement WebSocket connection for live predictions
- *    - Add polling mechanism for periodic updates
- *    - Update UI components to reflect real-time data changes
- *
- * 6. Performance optimization:
- *    - Implement caching for frequently accessed predictions
- *    - Add request debouncing for filter changes
- *    - Use React Query or SWR for data fetching and caching
+ * USAGE EXAMPLES:
+ * 
+ * // Get sales forecast for next 3 months
+ * const forecast = await predictionService.getSalesForecast({
+ *   timeRange: '3months',
+ *   category: 'Electronics'
+ * });
+ * 
+ * // Get inventory recommendations
+ * const inventory = await predictionService.getInventoryRecommendations({
+ *   category: 'Electronics'
+ * });
+ * 
+ * // Get comprehensive analysis
+ * const analysis = await predictionService.getAIInsights({
+ *   category: 'all'
+ * });
+ * 
+ * // Refresh predictions
+ * const refresh = await predictionService.refreshPredictions(true);
  */
