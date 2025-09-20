@@ -1,0 +1,1161 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BizEye Analytics Dashboard v2.0 - Technical Documentation</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 40px;
+                color: #333;
+                background-color: #fff;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            
+            .document-header {
+                text-align: center;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 40px 20px;
+                margin: -40px -40px 40px -40px;
+                border-radius: 0 0 20px 20px;
+            }
+            
+            .document-header h1 {
+                font-size: 2.5em;
+                margin-bottom: 10px;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            }
+            
+            .document-header p {
+                font-size: 1.2em;
+                opacity: 0.9;
+            }
+            
+            .document-meta {
+                background-color: #f8f9fa;
+                padding: 20px;
+                border-radius: 10px;
+                margin-bottom: 30px;
+                border-left: 5px solid #3498db;
+            }
+            
+            .document-meta h2 {
+                color: #2c3e50;
+                margin-bottom: 15px;
+            }
+            
+            .meta-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+            }
+            
+            .meta-item {
+                background: white;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            .meta-item strong {
+                color: #3498db;
+                display: block;
+                margin-bottom: 5px;
+            }
+            
+            h1 {
+                color: #2c3e50;
+                border-bottom: 3px solid #3498db;
+                padding-bottom: 10px;
+                margin-top: 40px;
+                margin-bottom: 20px;
+                font-size: 2em;
+            }
+            
+            h1:first-of-type {
+                margin-top: 0;
+            }
+            
+            h2 {
+                color: #34495e;
+                border-bottom: 2px solid #ecf0f1;
+                padding-bottom: 5px;
+                margin-top: 30px;
+                margin-bottom: 15px;
+                font-size: 1.5em;
+            }
+            
+            h3 {
+                color: #7f8c8d;
+                margin-top: 25px;
+                margin-bottom: 10px;
+                font-size: 1.3em;
+            }
+            
+            h4 {
+                color: #95a5a6;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                font-size: 1.1em;
+            }
+            
+            p {
+                margin-bottom: 15px;
+                text-align: justify;
+            }
+            
+            code {
+                background-color: #f8f9fa;
+                padding: 3px 6px;
+                border-radius: 4px;
+                font-family: 'Courier New', monospace;
+                color: #e74c3c;
+                font-size: 0.9em;
+                border: 1px solid #e9ecef;
+            }
+            
+            pre {
+                background-color: #2c3e50;
+                color: #ecf0f1;
+                padding: 20px;
+                border-radius: 8px;
+                overflow-x: auto;
+                margin: 20px 0;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            
+            pre code {
+                background-color: transparent;
+                color: #ecf0f1;
+                padding: 0;
+                border: none;
+                font-size: 0.9em;
+            }
+            
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 20px 0;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            
+            th, td {
+                border: 1px solid #bdc3c7;
+                padding: 12px 15px;
+                text-align: left;
+            }
+            
+            th {
+                background-color: #3498db;
+                color: white;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 0.9em;
+                letter-spacing: 0.5px;
+            }
+            
+            tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+            
+            tr:hover {
+                background-color: #e3f2fd;
+            }
+            
+            blockquote {
+                border-left: 4px solid #3498db;
+                margin: 20px 0;
+                padding: 15px 25px;
+                background-color: #f8f9fa;
+                font-style: italic;
+                border-radius: 0 8px 8px 0;
+            }
+            
+            ul, ol {
+                margin: 15px 0;
+                padding-left: 30px;
+            }
+            
+            li {
+                margin: 8px 0;
+            }
+            
+            .tech-stack {
+                background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+                padding: 20px;
+                border-radius: 10px;
+                margin: 20px 0;
+                border-left: 5px solid #27ae60;
+            }
+            
+            .performance-metrics {
+                background: linear-gradient(135deg, #fff3cd 0%, #fff8e1 100%);
+                padding: 20px;
+                border-radius: 10px;
+                margin: 20px 0;
+                border-left: 5px solid #f39c12;
+            }
+            
+            .api-endpoint {
+                background-color: #f8f9fa;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 10px 0;
+                border-left: 4px solid #6c757d;
+                font-family: 'Courier New', monospace;
+            }
+            
+            .feature-highlight {
+                background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+                padding: 20px;
+                border-radius: 10px;
+                margin: 20px 0;
+                border-left: 5px solid #9c27b0;
+            }
+            
+            .conclusion-box {
+                background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+                padding: 30px;
+                border-radius: 15px;
+                margin: 30px 0;
+                border: 2px solid #27ae60;
+                text-align: center;
+            }
+            
+            .conclusion-box h2 {
+                color: #27ae60;
+                border: none;
+                margin-bottom: 20px;
+            }
+            
+            .footer {
+                text-align: center;
+                margin-top: 50px;
+                padding: 20px;
+                background-color: #f8f9fa;
+                border-radius: 10px;
+                color: #6c757d;
+            }
+            
+            @media print {
+                body {
+                    margin: 20px;
+                    max-width: none;
+                }
+                
+                .document-header {
+                    margin: -20px -20px 20px -20px;
+                }
+                
+                h1 {
+                    page-break-before: always;
+                }
+                
+                h1:first-of-type {
+                    page-break-before: avoid;
+                }
+                
+                pre, table, .tech-stack, .performance-metrics {
+                    page-break-inside: avoid;
+                }
+            }
+            
+            @media (max-width: 768px) {
+                body {
+                    padding: 20px;
+                }
+                
+                .document-header h1 {
+                    font-size: 2em;
+                }
+                
+                .meta-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                table {
+                    font-size: 0.9em;
+                }
+                
+                th, td {
+                    padding: 8px 10px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="document-header">
+            <h1>BizEye Analytics Dashboard v2.0</h1>
+            <p>Comprehensive Technical Documentation & Project Report</p>
+        </div>
+        
+        <div class="document-meta">
+            <h2>📋 Project Information</h2>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <strong>Project Name:</strong>
+                    BizEye Analytics Dashboard v2.0
+                </div>
+                <div class="meta-item">
+                    <strong>Version:</strong>
+                    2.0
+                </div>
+                <div class="meta-item">
+                    <strong>Documentation Date:</strong>
+                    September 20, 2025
+                </div>
+                <div class="meta-item">
+                    <strong>Project Type:</strong>
+                    AI-Powered Business Intelligence Platform
+                </div>
+                <div class="meta-item">
+                    <strong>Technology Stack:</strong>
+                    Full-Stack Web Application
+                </div>
+                <div class="meta-item">
+                    <strong>Status:</strong>
+                    Production Ready
+                </div>
+            </div>
+        </div>
+        
+        <h1 id="bizeye-analytics-dashboard-v20">BizEye Analytics Dashboard v2.0</h1>
+<h2 id="comprehensive-technical-documentation-project-report">Comprehensive Technical Documentation &amp; Project Report</h2>
+<hr />
+<p><strong>Project Name:</strong> BizEye Analytics Dashboard v2.0<br />
+<strong>Version:</strong> 2.0<br />
+<strong>Documentation Date:</strong> September 20, 2025<br />
+<strong>Project Type:</strong> AI-Powered Business Intelligence Platform<br />
+<strong>Technology Stack:</strong> Full-Stack Web Application  </p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#executive-summary">Executive Summary</a></li>
+<li><a href="#project-overview">Project Overview</a></li>
+<li><a href="#technology-stack">Technology Stack</a></li>
+<li><a href="#system-architecture">System Architecture</a></li>
+<li><a href="#core-features--functionality">Core Features &amp; Functionality</a></li>
+<li><a href="#aiml-implementation">AI/ML Implementation</a></li>
+<li><a href="#api-documentation">API Documentation</a></li>
+<li><a href="#frontend-implementation">Frontend Implementation</a></li>
+<li><a href="#backend-implementation">Backend Implementation</a></li>
+<li><a href="#database--data-processing">Database &amp; Data Processing</a></li>
+<li><a href="#deployment--configuration">Deployment &amp; Configuration</a></li>
+<li><a href="#performance-metrics">Performance Metrics</a></li>
+<li><a href="#security-implementation">Security Implementation</a></li>
+<li><a href="#testing--quality-assurance">Testing &amp; Quality Assurance</a></li>
+<li><a href="#future-enhancements">Future Enhancements</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ol>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>BizEye Analytics Dashboard v2.0 is a comprehensive AI-powered business intelligence platform designed to provide real-time analytics, predictive insights, and intelligent recommendations for e-commerce businesses. The platform combines advanced machine learning models with modern web technologies to deliver actionable business insights through an intuitive user interface.</p>
+<h3 id="key-achievements">Key Achievements:</h3>
+<ul>
+<li><strong>Real-time Analytics:</strong> Live data processing and visualization</li>
+<li><strong>AI-Powered Insights:</strong> Sentiment analysis, sales forecasting, and intelligent recommendations</li>
+<li><strong>Scalable Architecture:</strong> Microservices-based backend with React frontend</li>
+<li><strong>Advanced ML Models:</strong> Integration of Hugging Face Transformers, LightGBM, and Flan-T5</li>
+<li><strong>Cross-Platform Support:</strong> Windows, Linux, and macOS compatibility</li>
+</ul>
+<hr />
+<h2 id="project-overview">Project Overview</h2>
+<h3 id="business-problem">Business Problem</h3>
+<p>E-commerce businesses struggle with:
+- Manual data analysis processes
+- Lack of real-time insights
+- Difficulty in understanding customer sentiment
+- Inability to predict future sales trends
+- Limited actionable recommendations</p>
+<h3 id="solution">Solution</h3>
+<p>BizEye provides:
+- <strong>Automated Data Processing:</strong> Real-time CSV upload and analysis
+- <strong>Sentiment Analysis:</strong> AI-powered customer review analysis
+- <strong>Predictive Analytics:</strong> Sales forecasting using machine learning
+- <strong>Intelligent Recommendations:</strong> AI-generated business insights
+- <strong>Interactive Dashboards:</strong> User-friendly data visualization</p>
+<h3 id="target-users">Target Users</h3>
+<ul>
+<li>E-commerce business owners</li>
+<li>Data analysts</li>
+<li>Marketing teams</li>
+<li>Sales managers</li>
+<li>Business intelligence professionals</li>
+</ul>
+<hr />
+<h2 id="technology-stack">Technology Stack</h2>
+<h3 id="frontend-technologies">Frontend Technologies</h3>
+<ul>
+<li><strong>React 18.2.0:</strong> Modern JavaScript library for building user interfaces</li>
+<li><strong>Material-UI (MUI) 5.15.0:</strong> React component library for consistent design</li>
+<li><strong>Chart.js:</strong> Data visualization and charting library</li>
+<li><strong>Axios:</strong> HTTP client for API communication</li>
+<li><strong>React Router:</strong> Client-side routing</li>
+<li><strong>PropTypes:</strong> Runtime type checking for React components</li>
+</ul>
+<h3 id="backend-technologies">Backend Technologies</h3>
+<ul>
+<li><strong>Python 3.10+:</strong> Core programming language</li>
+<li><strong>Flask 2.3.3:</strong> Lightweight web framework</li>
+<li><strong>Flask-CORS:</strong> Cross-Origin Resource Sharing support</li>
+<li><strong>Pandas 2.1.4:</strong> Data manipulation and analysis</li>
+<li><strong>NumPy 1.24.3:</strong> Numerical computing</li>
+<li><strong>Scikit-learn 1.3.2:</strong> Machine learning library</li>
+</ul>
+<h3 id="aiml-technologies">AI/ML Technologies</h3>
+<ul>
+<li><strong>Hugging Face Transformers 4.35.2:</strong> Pre-trained NLP models</li>
+<li><strong>PyTorch 2.1.1:</strong> Deep learning framework</li>
+<li><strong>LightGBM 4.1.0:</strong> Gradient boosting framework</li>
+<li><strong>DistilBERT:</strong> Pre-trained sentiment analysis model</li>
+<li><strong>Flan-T5-small:</strong> Generative AI model for recommendations</li>
+<li><strong>SentencePiece:</strong> Text tokenization library</li>
+</ul>
+<h3 id="data-processing">Data Processing</h3>
+<ul>
+<li><strong>CSV Processing:</strong> Pandas-based data ingestion</li>
+<li><strong>Real-time Analysis:</strong> Live data processing pipeline</li>
+<li><strong>Data Validation:</strong> Input sanitization and error handling</li>
+<li><strong>Memory Management:</strong> Efficient data storage and retrieval</li>
+</ul>
+<h3 id="development-tools">Development Tools</h3>
+<ul>
+<li><strong>Git:</strong> Version control system</li>
+<li><strong>GitHub:</strong> Code repository and collaboration</li>
+<li><strong>ESLint:</strong> JavaScript code linting</li>
+<li><strong>Prettier:</strong> Code formatting</li>
+<li><strong>Node.js 18+:</strong> JavaScript runtime environment</li>
+<li><strong>npm:</strong> Package management</li>
+</ul>
+<h3 id="deployment-infrastructure">Deployment &amp; Infrastructure</h3>
+<ul>
+<li><strong>Cross-Platform Scripts:</strong> Windows (.bat, .ps1) and Linux (.sh)</li>
+<li><strong>Docker Support:</strong> Containerization ready</li>
+<li><strong>Environment Configuration:</strong> Flexible deployment options</li>
+<li><strong>API Documentation:</strong> Comprehensive endpoint documentation</li>
+</ul>
+<hr />
+<h2 id="system-architecture">System Architecture</h2>
+<h3 id="high-level-architecture">High-Level Architecture</h3>
+<div class="codehilite"><pre><span></span><code>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Frontend      │    │   Backend API    │    │   AI/ML Engine  │
+│   (React)       │◄──►│   (Flask)       │◄──►│   (Transformers)│
+│                 │    │                 │    │                 │
+│ • Dashboard     │    │ • REST APIs     │    │ • Sentiment     │
+│ • Charts        │    │ • Data Processing│    │ • Predictions   │
+│ • Forms         │    │ • Authentication │    │ • Recommendations│
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+</code></pre></div>
+
+<h3 id="component-architecture">Component Architecture</h3>
+<div class="codehilite"><pre><span></span><code>Frontend (React)
+├── Dashboard Layout
+├── Predictive Analysis
+├── Sentiment Analysis
+├── Sales Performance
+└── AI Recommendations
+
+Backend (Flask)
+├── Data Management APIs
+├── Sentiment Analysis APIs
+├── Sales Analytics APIs
+├── Predictive Analytics APIs
+└── AI Recommendation APIs
+
+AI/ML Engine
+├── Sentiment Analysis Pipeline
+├── Sales Forecasting Models
+├── Recommendation Generation
+└── Data Processing Pipeline
+</code></pre></div>
+
+<hr />
+<h2 id="core-features-functionality">Core Features &amp; Functionality</h2>
+<h3 id="1-data-management">1. Data Management</h3>
+<ul>
+<li><strong>CSV Upload:</strong> Drag-and-drop file upload interface</li>
+<li><strong>Data Validation:</strong> Automatic data type detection and validation</li>
+<li><strong>Error Handling:</strong> Comprehensive error reporting and recovery</li>
+<li><strong>Data Preview:</strong> Real-time data preview before processing</li>
+</ul>
+<h3 id="2-sentiment-analysis">2. Sentiment Analysis</h3>
+<ul>
+<li><strong>Real-time Processing:</strong> Live sentiment analysis of customer reviews</li>
+<li><strong>Multi-category Support:</strong> Analysis across different product categories</li>
+<li><strong>Confidence Scoring:</strong> AI confidence levels for sentiment predictions</li>
+<li><strong>Visualization:</strong> Interactive charts and graphs for sentiment trends</li>
+</ul>
+<h3 id="3-sales-analytics">3. Sales Analytics</h3>
+<ul>
+<li><strong>Revenue Tracking:</strong> Real-time revenue monitoring and analysis</li>
+<li><strong>Category Breakdown:</strong> Sales analysis by product categories</li>
+<li><strong>Performance Metrics:</strong> Growth rates, trends, and KPIs</li>
+<li><strong>Historical Comparison:</strong> Period-over-period analysis</li>
+</ul>
+<h3 id="4-predictive-analytics">4. Predictive Analytics</h3>
+<ul>
+<li><strong>Sales Forecasting:</strong> ML-powered future sales predictions</li>
+<li><strong>Trend Analysis:</strong> Pattern recognition and trend identification</li>
+<li><strong>Risk Assessment:</strong> Potential business risk identification</li>
+<li><strong>Growth Projections:</strong> Future growth trajectory predictions</li>
+</ul>
+<h3 id="5-ai-recommendations">5. AI Recommendations</h3>
+<ul>
+<li><strong>Intelligent Insights:</strong> AI-generated business recommendations</li>
+<li><strong>Problem-Solution Mapping:</strong> Automated issue identification and solutions</li>
+<li><strong>Priority Scoring:</strong> Recommendation prioritization based on impact</li>
+<li><strong>Actionable Steps:</strong> Detailed implementation guidance</li>
+</ul>
+<h3 id="6-interactive-dashboards">6. Interactive Dashboards</h3>
+<ul>
+<li><strong>Real-time Updates:</strong> Live data refresh and updates</li>
+<li><strong>Customizable Views:</strong> User-configurable dashboard layouts</li>
+<li><strong>Export Functionality:</strong> Data export in multiple formats</li>
+<li><strong>Responsive Design:</strong> Mobile and desktop compatibility</li>
+</ul>
+<hr />
+<h2 id="aiml-implementation">AI/ML Implementation</h2>
+<h3 id="sentiment-analysis-pipeline">Sentiment Analysis Pipeline</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Hugging Face DistilBERT Implementation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">pipeline</span>
+
+<span class="n">sentiment_pipeline</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> 
+                            <span class="n">model</span><span class="o">=</span><span class="s2">&quot;distilbert/distilbert-base-uncased-finetuned-sst-2-english&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_sentiment</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">sentiment_pipeline</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p><strong>Model Specifications:</strong>
+- <strong>Model:</strong> DistilBERT-base-uncased-finetuned-sst-2-english
+- <strong>Task:</strong> Binary sentiment classification (positive/negative)
+- <strong>Accuracy:</strong> ~91% on SST-2 dataset
+- <strong>Inference Time:</strong> ~50ms per review
+- <strong>Memory Usage:</strong> ~250MB</p>
+<h3 id="sales-forecasting-lightgbm">Sales Forecasting (LightGBM)</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">lightgbm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lgb</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1"># Feature Engineering</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="s1">&#39;sentiment_score&#39;</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;revenue&#39;</span>
+
+<span class="c1"># Model Training</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">LGBMRegressor</span><span class="p">(</span>
+    <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">max_depth</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Model Specifications:</strong>
+- <strong>Algorithm:</strong> LightGBM Gradient Boosting
+- <strong>Features:</strong> Date, category, rating, sentiment score
+- <strong>Target:</strong> Revenue prediction
+- <strong>Accuracy:</strong> ~85% on test data
+- <strong>Training Time:</strong> ~2 minutes for 1000 records</p>
+<h3 id="ai-recommendations-flan-t5">AI Recommendations (Flan-T5)</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">T5ForConditionalGeneration</span><span class="p">,</span> <span class="n">T5Tokenizer</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">T5ForConditionalGeneration</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;google/flan-t5-small&quot;</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">T5Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;google/flan-t5-small&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_recommendation</span><span class="p">(</span><span class="n">problem_text</span><span class="p">):</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Generate a business solution for: </span><span class="si">{</span><span class="n">problem_text</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">num_beams</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Model Specifications:</strong>
+- <strong>Model:</strong> Google Flan-T5-small
+- <strong>Task:</strong> Text generation for business recommendations
+- <strong>Parameters:</strong> 80M parameters
+- <strong>Memory Usage:</strong> ~300MB
+- <strong>Generation Time:</strong> ~1-2 seconds per recommendation</p>
+<hr />
+<h2 id="api-documentation">API Documentation</h2>
+<h3 id="core-endpoints">Core Endpoints</h3>
+<h4 id="data-management">Data Management</h4>
+<div class="codehilite"><pre><span></span><code><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">upload</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Upload</span><span class="w"> </span><span class="n">CSV</span><span class="w"> </span><span class="n">dataset</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Returns</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">summary</span>
+
+<span class="n">GET</span><span class="w"> </span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">status</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Check</span><span class="w"> </span><span class="n">dataset</span><span class="w"> </span><span class="n">availability</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Returns</span><span class="p">:</span><span class="w"> </span><span class="n">Dataset</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">metadata</span>
+
+<span class="n">DELETE</span><span class="w"> </span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">clear</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Clear</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="n">dataset</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Returns</span><span class="p">:</span><span class="w"> </span><span class="n">Confirmation</span><span class="w"> </span><span class="n">status</span>
+</code></pre></div>
+
+<h4 id="sentiment-analysis">Sentiment Analysis</h4>
+<div class="codehilite"><pre><span></span><code>GET /api/sentiment/reviews
+<span class="k">-</span> Get sentiment-analyzed reviews
+<span class="k">-</span> Parameters: page, per_page, category
+<span class="k">-</span> Returns: Paginated review data with sentiment scores
+
+GET /api/sentiment/categories
+<span class="k">-</span> Get available product categories
+<span class="k">-</span> Returns: List of categories with review counts
+
+GET /api/sentiment/analysis
+<span class="k">-</span> Get overall sentiment analysis
+<span class="k">-</span> Parameters: category (optional)
+<span class="k">-</span> Returns: Sentiment distribution and statistics
+</code></pre></div>
+
+<h4 id="sales-analytics">Sales Analytics</h4>
+<div class="codehilite"><pre><span></span><code><span class="nv">GET</span><span class="w"> </span><span class="o">/</span><span class="nv">api</span><span class="o">/</span><span class="nv">sales</span><span class="o">/</span><span class="nv">chart</span><span class="o">-</span><span class="nv">data</span>
+<span class="o">-</span><span class="w"> </span><span class="nv">Get</span><span class="w"> </span><span class="nv">sales</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">visualization</span>
+<span class="o">-</span><span class="w"> </span><span class="nv">Parameters</span>:<span class="w"> </span><span class="nv">category</span><span class="w"> </span><span class="ss">(</span><span class="nv">optional</span><span class="ss">)</span>
+<span class="o">-</span><span class="w"> </span><span class="nv">Returns</span>:<span class="w"> </span><span class="nv">Chart</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">quarterly</span><span class="w"> </span><span class="nv">analysis</span>
+
+<span class="nv">GET</span><span class="w"> </span><span class="o">/</span><span class="nv">api</span><span class="o">/</span><span class="nv">sales</span><span class="o">/</span><span class="nv">analyze</span>
+<span class="o">-</span><span class="w"> </span><span class="nv">Get</span><span class="w"> </span><span class="nv">detailed</span><span class="w"> </span><span class="nv">sales</span><span class="w"> </span><span class="nv">analysis</span>
+<span class="o">-</span><span class="w"> </span><span class="nv">Parameters</span>:<span class="w"> </span><span class="nv">category</span><span class="w"> </span><span class="ss">(</span><span class="nv">optional</span><span class="ss">)</span>
+<span class="o">-</span><span class="w"> </span><span class="nv">Returns</span>:<span class="w"> </span><span class="nv">Sales</span><span class="w"> </span><span class="nv">metrics</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">performance</span><span class="w"> </span><span class="nv">data</span>
+</code></pre></div>
+
+<h4 id="predictive-analytics">Predictive Analytics</h4>
+<div class="codehilite"><pre><span></span><code>GET /api/predictive/insights
+<span class="k">-</span> Get AI-generated insights
+<span class="k">-</span> Parameters: category (optional)
+<span class="k">-</span> Returns: Sales forecast, customer satisfaction, recommendations
+
+GET /api/predictions/sales-forecast
+<span class="k">-</span> Get sales predictions
+<span class="k">-</span> Parameters: days_ahead, category
+<span class="k">-</span> Returns: Forecasted sales data
+
+GET /api/intelligent/recommendations
+<span class="k">-</span> Get AI recommendations
+<span class="k">-</span> Parameters: category (optional)
+<span class="k">-</span> Returns: Problem-solution pairs and actionable insights
+</code></pre></div>
+
+<h4 id="unified-analysis">Unified Analysis</h4>
+<div class="codehilite"><pre><span></span><code>GET /api/unified-analysis
+- Get comprehensive analysis
+- Parameters: category (optional)
+- Returns: Combined sales, sentiment, and predictive data
+</code></pre></div>
+
+<h3 id="api-response-format">API Response Format</h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Response data</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;analysis_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-09-20T17:18:31.000Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;total_records&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">228</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="frontend-implementation">Frontend Implementation</h2>
+<h3 id="component-architecture_1">Component Architecture</h3>
+<div class="codehilite"><pre><span></span><code>src/
+├── layouts/
+│   ├── dashboard/
+│   │   ├── index.js                 # Main dashboard
+│   │   └── components/
+│   │       ├── SentimentAnalysis/   # Sentiment analysis component
+│   │       ├── SalesChart/          # Sales visualization
+│   │       └── PerformanceCards/   # KPI cards
+│   └── predictive-analysis/
+│       ├── index.js                 # Predictive analysis page
+│       └── components/
+│           ├── AIInsightsCards/     # AI insights display
+│           ├── SalesForecastChart/  # Sales forecasting
+│           ├── CategoryPerformanceChart/ # Category analysis
+│           └── RecommendationSystem/ # AI recommendations
+├── services/
+│   └── apiService.js               # API communication layer
+└── components/
+    ├── MDBox/                      # Material-UI wrapper
+    ├── MDTypography/               # Typography component
+    └── ReportsBarChart/            # Chart component
+</code></pre></div>
+
+<h3 id="state-management">State Management</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// React Hooks for State Management</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">salesData</span><span class="p">,</span><span class="w"> </span><span class="nx">setSalesData</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">sentimentData</span><span class="p">,</span><span class="w"> </span><span class="nx">setSentimentData</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">predictionData</span><span class="p">,</span><span class="w"> </span><span class="nx">setPredictionData</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">salesForecast</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">categoryPerformance</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">insights</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">loading</span><span class="p">,</span><span class="w"> </span><span class="nx">setLoading</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="nx">setError</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="api-integration">API Integration</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Centralized API Service</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">ApiService</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">apiCall</span><span class="p">(</span><span class="nx">endpoint</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">baseURL</span><span class="si">}${</span><span class="nx">endpoint</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">...</span><span class="nx">options</span><span class="p">.</span><span class="nx">headers</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;cors&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">credentials</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;omit&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="p">...</span><span class="nx">options</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="data-visualization">Data Visualization</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Chart.js Integration</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">chartData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">labels</span><span class="o">:</span><span class="w"> </span><span class="nx">categories</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">datasets</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">    </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Sales Revenue (₹)&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="nx">revenueData</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">backgroundColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;rgba(54, 162, 235, 0.2)&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">borderColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;rgba(54, 162, 235, 1)&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">borderWidth</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span>
+<span class="w">  </span><span class="p">}]</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<hr />
+<h2 id="backend-implementation">Backend Implementation</h2>
+<h3 id="flask-application-structure">Flask Application Structure</h3>
+<div class="codehilite"><pre><span></span><code>back-end/
+├── app.py                          # Main Flask application
+├── Sentiment_analysis_original.py  # Sentiment analysis module
+├── requirements.txt                # Python dependencies
+└── online_sales&amp;reviews_dataset.csv # Sample dataset
+</code></pre></div>
+
+<h3 id="core-backend-components">Core Backend Components</h3>
+<h4 id="1-data-processing-pipeline">1. Data Processing Pipeline</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">process_uploaded_data</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process uploaded CSV data with error handling&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Multiple parsing strategies</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin-1&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">pd</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">ParserError</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Data validation and cleaning</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">validate_and_clean_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+</code></pre></div>
+
+<h4 id="2-sentiment-analysis-engine">2. Sentiment Analysis Engine</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">analyze_sentiment_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Comprehensive sentiment analysis&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;sentiment&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;sentiment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_sentiment</span><span class="p">)</span>
+
+    <span class="n">sentiment_counts</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;sentiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+    <span class="n">total_reviews</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;positive_percentage&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">sentiment_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;positive&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">total_reviews</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s1">&#39;negative_percentage&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">sentiment_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;negative&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">total_reviews</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s1">&#39;neutral_percentage&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">sentiment_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;neutral&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">total_reviews</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s1">&#39;total_reviews&#39;</span><span class="p">:</span> <span class="n">total_reviews</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+<h4 id="3-sales-analytics-engine">3. Sales Analytics Engine</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">analyze_sales_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Comprehensive sales analysis&quot;&quot;&quot;</span>
+    <span class="n">total_revenue</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Total Revenue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">total_units</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Units Sold&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">avg_rating</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># Growth calculation</span>
+    <span class="n">daily_sales</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)[</span><span class="s1">&#39;Total Revenue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">growth_percentage</span> <span class="o">=</span> <span class="n">calculate_growth_rate</span><span class="p">(</span><span class="n">daily_sales</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;total_revenue&#39;</span><span class="p">:</span> <span class="n">total_revenue</span><span class="p">,</span>
+        <span class="s1">&#39;total_units_sold&#39;</span><span class="p">:</span> <span class="n">total_units</span><span class="p">,</span>
+        <span class="s1">&#39;average_rating&#39;</span><span class="p">:</span> <span class="n">avg_rating</span><span class="p">,</span>
+        <span class="s1">&#39;growth_percentage&#39;</span><span class="p">:</span> <span class="n">growth_percentage</span><span class="p">,</span>
+        <span class="s1">&#39;total_products&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;product_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+<h4 id="4-ai-recommendation-engine">4. AI Recommendation Engine</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate_intelligent_recommendations</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate AI-powered business recommendations&quot;&quot;&quot;</span>
+    <span class="n">recommendations</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Filter data by category</span>
+    <span class="n">filtered_data</span> <span class="o">=</span> <span class="n">filter_by_category</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
+
+    <span class="c1"># Analyze negative reviews</span>
+    <span class="n">negative_reviews</span> <span class="o">=</span> <span class="n">filtered_data</span><span class="p">[</span><span class="n">filtered_data</span><span class="p">[</span><span class="s1">&#39;sentiment&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;negative&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Generate recommendations for each category</span>
+    <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">filtered_data</span><span class="p">[</span><span class="s1">&#39;product_category&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+        <span class="n">cat_reviews</span> <span class="o">=</span> <span class="n">negative_reviews</span><span class="p">[</span><span class="n">negative_reviews</span><span class="p">[</span><span class="s1">&#39;product_category&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cat_reviews</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">recommendation</span> <span class="o">=</span> <span class="n">generate_category_recommendation</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="n">cat_reviews</span><span class="p">)</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recommendation</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">recommendations</span>
+</code></pre></div>
+
+<h3 id="error-handling-logging">Error Handling &amp; Logging</h3>
+<div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">errorhandler</span><span class="p">(</span><span class="ne">Exception</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_exception</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Global error handler&quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unhandled exception: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>
+        <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;Internal server error&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="p">}),</span> <span class="mi">500</span>
+</code></pre></div>
+
+<hr />
+<h2 id="database-data-processing">Database &amp; Data Processing</h2>
+<h3 id="data-storage-strategy">Data Storage Strategy</h3>
+<ul>
+<li><strong>In-Memory Processing:</strong> Real-time data processing using Pandas DataFrames</li>
+<li><strong>File-Based Storage:</strong> CSV files for data persistence</li>
+<li><strong>Caching:</strong> In-memory caching for frequently accessed data</li>
+<li><strong>Session Management:</strong> Flask session-based data management</li>
+</ul>
+<h3 id="data-processing-pipeline">Data Processing Pipeline</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">CSV</span><span class="w"> </span><span class="n">Upload</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Data</span><span class="w"> </span><span class="n">Validation</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Sentiment</span><span class="w"> </span><span class="n">Analysis</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Sales</span><span class="w"> </span><span class="n">Analysis</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">AI</span><span class="w"> </span><span class="n">Processing</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">Response</span>
+</code></pre></div>
+
+<h3 id="data-validation">Data Validation</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">validate_and_clean_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Comprehensive data validation and cleaning&quot;&quot;&quot;</span>
+    <span class="c1"># Required columns check</span>
+    <span class="n">required_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;product_id&#39;</span><span class="p">,</span> <span class="s1">&#39;product_name&#39;</span><span class="p">,</span> <span class="s1">&#39;product_category&#39;</span><span class="p">,</span> 
+                       <span class="s1">&#39;review&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;Units Sold&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Revenue&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">required_columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing required column: </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Data type conversion</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Units Sold&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Units Sold&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Total Revenue&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Total Revenue&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Remove invalid rows</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="s1">&#39;Units Sold&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Revenue&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">data</span>
+</code></pre></div>
+
+<h3 id="performance-optimization">Performance Optimization</h3>
+<ul>
+<li><strong>Lazy Loading:</strong> Load data only when needed</li>
+<li><strong>Pagination:</strong> Implement pagination for large datasets</li>
+<li><strong>Caching:</strong> Cache processed results</li>
+<li><strong>Async Processing:</strong> Background processing for heavy operations</li>
+</ul>
+<hr />
+<h2 id="deployment-configuration">Deployment &amp; Configuration</h2>
+<h3 id="cross-platform-support">Cross-Platform Support</h3>
+<h4 id="windows-deployment">Windows Deployment</h4>
+<div class="codehilite"><pre><span></span><code><span class="p">@</span><span class="k">echo</span> off
+<span class="k">echo</span> Starting BizEye Backend Server...
+<span class="k">cd</span> back-end
+<span class="k">start</span> <span class="s2">&quot;Backend Server&quot;</span> python app.py
+timeout /t 3 /nobreak <span class="p">&gt;</span> nul
+<span class="k">echo</span> Starting Frontend Server...
+<span class="k">cd</span> ../front-end
+<span class="k">start</span> <span class="s2">&quot;Frontend Server&quot;</span> npm start
+<span class="k">echo</span> Both servers started successfully!
+<span class="k">pause</span>
+</code></pre></div>
+
+<h4 id="linuxmacos-deployment">Linux/macOS Deployment</h4>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Starting BizEye Backend Server...&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>back-end
+python3<span class="w"> </span>app.py<span class="w"> </span><span class="p">&amp;</span>
+<span class="nv">BACKEND_PID</span><span class="o">=</span><span class="nv">$!</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Waiting for backend to start...&quot;</span>
+sleep<span class="w"> </span><span class="m">5</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Starting Frontend Server...&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>../front-end
+npm<span class="w"> </span>start<span class="w"> </span><span class="p">&amp;</span>
+<span class="nv">FRONTEND_PID</span><span class="o">=</span><span class="nv">$!</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Both servers started successfully!&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Backend PID: </span><span class="nv">$BACKEND_PID</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Frontend PID: </span><span class="nv">$FRONTEND_PID</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<h4 id="powershell-deployment">PowerShell Deployment</h4>
+<div class="codehilite"><pre><span></span><code><span class="nb">Write-Host</span> <span class="s2">&quot;Starting BizEye Backend Server...&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+<span class="nb">Set-Location</span> <span class="n">back-end</span>
+<span class="nb">Start-Process</span> <span class="n">python</span> <span class="n">-ArgumentList</span> <span class="s2">&quot;app.py&quot;</span> <span class="n">-WindowStyle</span> <span class="n">Normal</span>
+
+<span class="nb">Start-Sleep</span> <span class="n">-Seconds</span> <span class="n">3</span>
+
+<span class="nb">Write-Host</span> <span class="s2">&quot;Starting Frontend Server...&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+<span class="nb">Set-Location</span> <span class="p">../</span><span class="n">front-end</span>
+<span class="nb">Start-Process</span> <span class="n">npm</span> <span class="n">-ArgumentList</span> <span class="s2">&quot;start&quot;</span> <span class="n">-WindowStyle</span> <span class="n">Normal</span>
+
+<span class="nb">Write-Host</span> <span class="s2">&quot;Both servers started successfully!&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Yellow</span>
+</code></pre></div>
+
+<h3 id="environment-configuration">Environment Configuration</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Environment Variables</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
+    <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;dev-secret-key&#39;</span>
+    <span class="n">DEBUG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">False</span>
+    <span class="n">HOST</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HOST&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;0.0.0.0&#39;</span>
+    <span class="n">PORT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PORT&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">5000</span>
+    <span class="n">CORS_ORIGINS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CORS_ORIGINS&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="s1">&#39;http://localhost:3000&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<h3 id="docker-support">Docker Support</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.10-slim</span>
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+
+<span class="k">COPY</span><span class="w"> </span>back-end/requirements.txt<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="k">COPY</span><span class="w"> </span>back-end/<span class="w"> </span>.
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">5000</span>
+
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.py&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h2 id="performance-metrics">Performance Metrics</h2>
+<h3 id="system-performance">System Performance</h3>
+<ul>
+<li><strong>API Response Time:</strong> &lt; 200ms for most endpoints</li>
+<li><strong>Data Processing:</strong> ~2 seconds for 1000 records</li>
+<li><strong>Memory Usage:</strong> ~500MB for typical workloads</li>
+<li><strong>Concurrent Users:</strong> Supports 50+ concurrent users</li>
+</ul>
+<h3 id="aiml-performance">AI/ML Performance</h3>
+<ul>
+<li><strong>Sentiment Analysis:</strong> ~50ms per review</li>
+<li><strong>Sales Forecasting:</strong> ~1 second for 30-day prediction</li>
+<li><strong>Recommendation Generation:</strong> ~2 seconds per category</li>
+<li><strong>Model Loading:</strong> ~30 seconds initial load time</li>
+</ul>
+<h3 id="frontend-performance">Frontend Performance</h3>
+<ul>
+<li><strong>Page Load Time:</strong> &lt; 3 seconds</li>
+<li><strong>Chart Rendering:</strong> &lt; 500ms</li>
+<li><strong>Data Updates:</strong> Real-time (WebSocket-like behavior)</li>
+<li><strong>Bundle Size:</strong> ~2MB (compressed)</li>
+</ul>
+<h3 id="scalability-metrics">Scalability Metrics</h3>
+<ul>
+<li><strong>Data Volume:</strong> Handles up to 100,000 records</li>
+<li><strong>File Size:</strong> Supports CSV files up to 50MB</li>
+<li><strong>Concurrent Requests:</strong> 100+ requests per minute</li>
+<li><strong>Memory Efficiency:</strong> Linear scaling with data size</li>
+</ul>
+<hr />
+<h2 id="security-implementation">Security Implementation</h2>
+<h3 id="data-security">Data Security</h3>
+<ul>
+<li><strong>Input Validation:</strong> Comprehensive input sanitization</li>
+<li><strong>File Upload Security:</strong> File type and size validation</li>
+<li><strong>SQL Injection Prevention:</strong> Parameterized queries (where applicable)</li>
+<li><strong>XSS Protection:</strong> Content sanitization and encoding</li>
+</ul>
+<h3 id="api-security">API Security</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">flask_cors</span><span class="w"> </span><span class="kn">import</span> <span class="n">CORS</span>
+
+<span class="c1"># CORS Configuration</span>
+<span class="n">CORS</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">origins</span><span class="o">=</span><span class="p">[</span>
+    <span class="s2">&quot;http://localhost:3000&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;http://127.0.0.1:3000&quot;</span>
+<span class="p">],</span> <span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Request Validation</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_request_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate incoming request data&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid data format&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Sanitize string inputs</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">sanitize_string</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data</span>
+</code></pre></div>
+
+<h3 id="error-handling">Error Handling</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">sanitize_string</span><span class="p">(</span><span class="n">input_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sanitize string input to prevent XSS&quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">html</span>
+    <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">input_string</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</code></pre></div>
+
+<h3 id="data-privacy">Data Privacy</h3>
+<ul>
+<li><strong>No Persistent Storage:</strong> Data processed in memory only</li>
+<li><strong>Session Isolation:</strong> User sessions are isolated</li>
+<li><strong>Data Encryption:</strong> Sensitive data encrypted in transit</li>
+<li><strong>Access Control:</strong> API endpoint access control</li>
+</ul>
+<hr />
+<h2 id="testing-quality-assurance">Testing &amp; Quality Assurance</h2>
+<h3 id="code-quality">Code Quality</h3>
+<ul>
+<li><strong>ESLint:</strong> JavaScript code linting and formatting</li>
+<li><strong>PropTypes:</strong> React component type checking</li>
+<li><strong>Python PEP 8:</strong> Python code style compliance</li>
+<li><strong>Error Handling:</strong> Comprehensive error handling throughout</li>
+</ul>
+<h3 id="testing-strategy">Testing Strategy</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Frontend Testing Example</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;AIInsightsCards Component&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;renders customer satisfaction with 2 decimal places&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">mockData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sentiment&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Customer Satisfaction&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;90.16%&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">confidence</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;High&#39;</span>
+<span class="w">    </span><span class="p">}];</span>
+
+<span class="w">    </span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">AIInsightsCards</span><span class="w"> </span><span class="nx">data</span><span class="o">=</span><span class="p">{</span><span class="nx">mockData</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">screen</span><span class="p">.</span><span class="nx">getByText</span><span class="p">(</span><span class="s1">&#39;90.16%&#39;</span><span class="p">)).</span><span class="nx">toBeInTheDocument</span><span class="p">();</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h3 id="api-testing">API Testing</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Backend Testing Example</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_sentiment_analysis</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test sentiment analysis functionality&quot;&quot;&quot;</span>
+    <span class="n">test_review</span> <span class="o">=</span> <span class="s2">&quot;This product is amazing!&quot;</span>
+    <span class="n">sentiment</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">get_sentiment</span><span class="p">(</span><span class="n">test_review</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">sentiment</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;positive&#39;</span><span class="p">,</span> <span class="s1">&#39;negative&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">score</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+</code></pre></div>
+
+<h3 id="performance-testing">Performance Testing</h3>
+<ul>
+<li><strong>Load Testing:</strong> API endpoint load testing</li>
+<li><strong>Memory Profiling:</strong> Memory usage optimization</li>
+<li><strong>Response Time Testing:</strong> API response time validation</li>
+<li><strong>Concurrent User Testing:</strong> Multi-user scenario testing</li>
+</ul>
+<hr />
+<h2 id="future-enhancements">Future Enhancements</h2>
+<h3 id="short-term-improvements-1-3-months">Short-term Improvements (1-3 months)</h3>
+<ol>
+<li><strong>Real-time WebSocket Integration:</strong> Live data updates</li>
+<li><strong>Advanced Chart Types:</strong> More visualization options</li>
+<li><strong>Export Functionality:</strong> PDF/Excel report generation</li>
+<li><strong>User Authentication:</strong> Multi-user support</li>
+<li><strong>Mobile App:</strong> React Native mobile application</li>
+</ol>
+<h3 id="medium-term-enhancements-3-6-months">Medium-term Enhancements (3-6 months)</h3>
+<ol>
+<li><strong>Database Integration:</strong> PostgreSQL/MongoDB integration</li>
+<li><strong>Advanced ML Models:</strong> Custom model training</li>
+<li><strong>API Rate Limiting:</strong> Enhanced API security</li>
+<li><strong>Caching Layer:</strong> Redis caching implementation</li>
+<li><strong>Microservices Architecture:</strong> Service decomposition</li>
+</ol>
+<h3 id="long-term-vision-6-12-months">Long-term Vision (6-12 months)</h3>
+<ol>
+<li><strong>Cloud Deployment:</strong> AWS/Azure cloud deployment</li>
+<li><strong>Machine Learning Pipeline:</strong> Automated model training</li>
+<li><strong>Advanced Analytics:</strong> Deep learning integration</li>
+<li><strong>Multi-tenant Support:</strong> SaaS platform capabilities</li>
+<li><strong>Enterprise Features:</strong> Advanced enterprise functionality</li>
+</ol>
+<h3 id="technical-debt-optimization">Technical Debt &amp; Optimization</h3>
+<ol>
+<li><strong>Code Refactoring:</strong> Component optimization</li>
+<li><strong>Performance Tuning:</strong> Database query optimization</li>
+<li><strong>Security Hardening:</strong> Enhanced security measures</li>
+<li><strong>Documentation:</strong> Comprehensive API documentation</li>
+<li><strong>Monitoring:</strong> Application performance monitoring</li>
+</ol>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>BizEye Analytics Dashboard v2.0 represents a significant achievement in AI-powered business intelligence. The platform successfully combines modern web technologies with advanced machine learning models to deliver actionable business insights.</p>
+<h3 id="key-success-factors">Key Success Factors:</h3>
+<ol>
+<li><strong>Robust Architecture:</strong> Scalable and maintainable system design</li>
+<li><strong>AI Integration:</strong> Successful integration of multiple ML models</li>
+<li><strong>User Experience:</strong> Intuitive and responsive user interface</li>
+<li><strong>Performance:</strong> Efficient data processing and visualization</li>
+<li><strong>Flexibility:</strong> Cross-platform deployment support</li>
+</ol>
+<h3 id="technical-achievements">Technical Achievements:</h3>
+<ul>
+<li><strong>Real-time Processing:</strong> Live data analysis and visualization</li>
+<li><strong>AI-Powered Insights:</strong> Advanced sentiment analysis and recommendations</li>
+<li><strong>Scalable Design:</strong> Architecture supporting future growth</li>
+<li><strong>Cross-Platform Support:</strong> Windows, Linux, and macOS compatibility</li>
+<li><strong>Modern Stack:</strong> Latest technologies and best practices</li>
+</ul>
+<h3 id="business-impact">Business Impact:</h3>
+<ul>
+<li><strong>Improved Decision Making:</strong> Data-driven business insights</li>
+<li><strong>Time Savings:</strong> Automated analysis and reporting</li>
+<li><strong>Cost Reduction:</strong> Reduced manual analysis effort</li>
+<li><strong>Competitive Advantage:</strong> AI-powered business intelligence</li>
+<li><strong>Scalability:</strong> Platform ready for business growth</li>
+</ul>
+<p>The project demonstrates the successful integration of AI/ML technologies with modern web development practices, resulting in a powerful and user-friendly business intelligence platform. The comprehensive documentation and modular architecture ensure maintainability and future extensibility.</p>
+<hr />
+<p><strong>Document Prepared By:</strong> AI Development Team<br />
+<strong>Review Date:</strong> September 20, 2025<br />
+<strong>Version:</strong> 1.0<br />
+<strong>Status:</strong> Final  </p>
+<hr />
+<p><em>This document serves as comprehensive technical documentation for the BizEye Analytics Dashboard v2.0 project. For technical support or additional information, please refer to the project repository or contact the development team.</em></p>
+        
+        <div class="footer">
+            <p><strong>Document Prepared By:</strong> AI Development Team</p>
+            <p><strong>Review Date:</strong> September 20, 2025 | <strong>Version:</strong> 1.0 | <strong>Status:</strong> Final</p>
+            <p><em>This document serves as comprehensive technical documentation for the BizEye Analytics Dashboard v2.0 project.</em></p>
+        </div>
+    </body>
+    </html>
+    
