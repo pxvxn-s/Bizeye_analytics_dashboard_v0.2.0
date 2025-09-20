@@ -45,10 +45,10 @@ function AIInsightsCards({ data, salesData, forecastData }) {
         {
           type: "sentiment",
           title: "Customer Satisfaction",
-          value: "99.0%",
+          value: "0.0%",
           description: "Upload a dataset to analyze customer sentiment",
-          confidence: "High",
-          confidenceScore: 95,
+          confidence: "Low",
+          confidenceScore: 0,
         },
         {
           type: "recommendation",
@@ -66,6 +66,20 @@ function AIInsightsCards({ data, salesData, forecastData }) {
     const performanceChange = salesData.quarterly_analysis?.growth_percentage || 0;
     const avgUnitPrice = salesData.quarterly_analysis?.avg_daily_sales || 0;
     
+    // Calculate customer satisfaction based on sentiment data if available
+    let customerSatisfaction = 0.0;
+    let satisfactionConfidence = "Low";
+    let satisfactionScore = 0;
+    
+    if (salesData.sentiment_analysis) {
+      const positivePercentage = salesData.sentiment_analysis.positive_percentage || 0;
+      const neutralPercentage = salesData.sentiment_analysis.neutral_percentage || 0;
+      // Calculate satisfaction as positive + half of neutral (assuming neutral is somewhat positive)
+      customerSatisfaction = positivePercentage + (neutralPercentage * 0.5);
+      satisfactionConfidence = customerSatisfaction > 70 ? "High" : customerSatisfaction > 40 ? "Medium" : "Low";
+      satisfactionScore = Math.min(95, Math.max(40, customerSatisfaction));
+    }
+    
 
     return [
       {
@@ -79,10 +93,10 @@ function AIInsightsCards({ data, salesData, forecastData }) {
       {
         type: "sentiment",
         title: "Customer Satisfaction",
-        value: `${(99 + Math.random()).toFixed(1)}%`,
+        value: `${customerSatisfaction.toFixed(1)}%`,
         description: `Based on product performance and sales analysis`,
-        confidence: "High",
-        confidenceScore: 95,
+        confidence: satisfactionConfidence,
+        confidenceScore: satisfactionScore,
       },
       {
         type: "recommendation",
