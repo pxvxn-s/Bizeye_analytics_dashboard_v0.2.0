@@ -580,7 +580,7 @@ def get_unified_analysis():
         sentiment_analysis = analyze_sentiment_data(filtered_data)
         
         # 3. PREDICTIVE ANALYTICS (Simplified fallback)
-        predictive_analysis = {
+                predictive_analysis = {
             "sales_forecast": {"message": "Predictive analytics disabled to avoid conflicts"},
             "demand_prediction": {"message": "Predictive analytics disabled to avoid conflicts"},
             "inventory_recommendations": {"message": "Predictive analytics disabled to avoid conflicts"},
@@ -1350,7 +1350,7 @@ def get_ai_recommendations():
             "ai_model": "Statistical Analysis Engine v1.0"
         })
         
-    except Exception as e:
+            except Exception as e:
         print(f"Error in AI recommendations endpoint: {e}")
         return jsonify({"error": str(e)}), 500
 

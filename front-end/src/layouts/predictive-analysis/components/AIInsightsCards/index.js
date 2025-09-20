@@ -30,8 +30,15 @@ import MDTypography from "components/MDTypography";
 import PropTypes from "prop-types";
 
 function AIInsightsCards({ data, salesData, forecastData }) {
-  // Generate insights based on actual sales data - Revenue Potential card removed
+  // Use insights from backend API if available, otherwise generate fallback
   const generateInsights = () => {
+    // If we have insights from the API, use them
+    if (data && Array.isArray(data) && data.length > 0) {
+      // Filter out revenue potential card and return only the 3 cards we want
+      return data.filter(insight => insight.type !== 'optimization');
+    }
+    
+    // Fallback when no data
     if (!salesData) {
       return [
         {
@@ -61,26 +68,11 @@ function AIInsightsCards({ data, salesData, forecastData }) {
       ];
     }
 
+    // Fallback calculation when salesData is available but no API insights
     const totalRevenue = salesData.quarterly_analysis?.total_sales || 0;
     const totalProducts = Object.keys(salesData.category_sales || {}).length;
     const performanceChange = salesData.quarterly_analysis?.growth_percentage || 0;
-    const avgUnitPrice = salesData.quarterly_analysis?.avg_daily_sales || 0;
     
-    // Calculate customer satisfaction based on sentiment data if available
-    let customerSatisfaction = 0.0;
-    let satisfactionConfidence = "Low";
-    let satisfactionScore = 0;
-    
-    if (salesData.sentiment_analysis) {
-      const positivePercentage = salesData.sentiment_analysis.positive_percentage || 0;
-      const neutralPercentage = salesData.sentiment_analysis.neutral_percentage || 0;
-      // Calculate satisfaction as positive + half of neutral (assuming neutral is somewhat positive)
-      customerSatisfaction = positivePercentage + (neutralPercentage * 0.5);
-      satisfactionConfidence = customerSatisfaction > 70 ? "High" : customerSatisfaction > 40 ? "Medium" : "Low";
-      satisfactionScore = Math.min(95, Math.max(40, customerSatisfaction));
-    }
-    
-
     return [
       {
         type: "prediction",
@@ -93,10 +85,10 @@ function AIInsightsCards({ data, salesData, forecastData }) {
       {
         type: "sentiment",
         title: "Customer Satisfaction",
-        value: `${customerSatisfaction.toFixed(1)}%`,
+        value: "0.0%",
         description: `Based on product performance and sales analysis`,
-        confidence: satisfactionConfidence,
-        confidenceScore: satisfactionScore,
+        confidence: "Low",
+        confidenceScore: 0,
       },
       {
         type: "recommendation",
