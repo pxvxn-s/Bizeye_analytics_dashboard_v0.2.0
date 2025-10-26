@@ -1,54 +1,52 @@
 #!/bin/bash
 
-# BIZEYE Setup Script
-# This script sets up the BIZEYE development environment
+# BizEye Analytics Dashboard v0.2.0 - Linux/Mac Setup Script
+# This script sets up the complete development environment
 
-echo "🚀 Setting up BIZEYE Development Environment..."
+echo "🚀 BizEye Analytics Dashboard v0.2.0 - Setup Script"
+echo "=================================================="
+echo ""
 
 # Check if Python is installed
 if ! command -v python3 &> /dev/null; then
     echo "❌ Python 3 is not installed. Please install Python 3.8+ first."
+    echo "   Visit: https://www.python.org/downloads/"
     exit 1
 fi
 
-# Check if Node.js is installed
-if ! command -v node &> /dev/null; then
-    echo "❌ Node.js is not installed. Please install Node.js 16+ first."
-    exit 1
-fi
+echo "✅ Python 3 found: $(python3 --version)"
+echo ""
 
-echo "✅ Python and Node.js are installed"
-
-# Setup Backend
-echo "📦 Setting up backend dependencies..."
+# Navigate to backend directory
+echo "📁 Setting up backend environment..."
 cd back-end
-pip3 install -r requirements.txt
-if [ $? -eq 0 ]; then
-    echo "✅ Backend dependencies installed successfully"
-else
-    echo "❌ Failed to install backend dependencies"
-    exit 1
-fi
 
-# Setup Frontend
-echo "📦 Setting up frontend dependencies..."
-cd ../front-end
-npm install
-if [ $? -eq 0 ]; then
-    echo "✅ Frontend dependencies installed successfully"
-else
-    echo "❌ Failed to install frontend dependencies"
-    exit 1
-fi
+# Create virtual environment
+echo "🔧 Creating virtual environment..."
+python3 -m venv venv
 
-cd ..
+# Activate virtual environment
+echo "⚡ Activating virtual environment..."
+source venv/bin/activate
+
+# Upgrade pip
+echo "📦 Upgrading pip..."
+pip install --upgrade pip
+
+# Install requirements
+echo "📥 Installing required packages..."
+echo "   This may take a few minutes for first-time setup..."
+pip install -r requirements.txt
 
 echo ""
-echo "🎉 BIZEYE setup completed successfully!"
+echo "✅ Setup completed successfully!"
 echo ""
-echo "📋 Next steps:"
-echo "1. Start the backend: cd back-end && python3 app.py"
-echo "2. Start the frontend: cd front-end && npm start"
-echo "3. Open http://localhost:3000 in your browser"
+echo "🎯 Next steps:"
+echo "   1. Run: ./start.sh"
+echo "   2. Open: http://localhost:3000 (Frontend)"
+echo "   3. Backend API: http://localhost:5000"
 echo ""
-echo "📚 For more information, see README.md"
+echo "📚 For detailed instructions, see README.md"
+echo "📄 For technical documentation, see BizEye_Complete_Technical_Guide_v0.2.0.pdf"
+echo ""
+echo "🎉 Welcome to BizEye Analytics Dashboard!"

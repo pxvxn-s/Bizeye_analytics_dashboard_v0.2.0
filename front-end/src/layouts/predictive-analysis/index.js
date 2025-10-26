@@ -208,24 +208,6 @@ function PredictiveAnalysis() {
           </Grid>
         </MDBox>
 
-        {/* Time Range Display */}
-        <MDBox mb={4}>
-          <Card sx={{ 
-            borderRadius: 3, 
-            boxShadow: 3, 
-            backgroundColor: "warning.main"
-          }}>
-            <CardContent sx={{ p: 3 }}>
-              <MDBox display="flex" alignItems="center" justifyContent="center">
-                <MDTypography variant="h5" fontWeight="bold" color="white">
-                  Analysis Period: Last 1 Month
-                </MDTypography>
-                <Icon sx={{ color: "white", ml: 2, fontSize: 36 }}>trending_up</Icon>
-              </MDBox>
-            </CardContent>
-          </Card>
-        </MDBox>
-
         {/* AI Insights Cards */}
         <AIInsightsCards 
           data={predictionData.insights} 

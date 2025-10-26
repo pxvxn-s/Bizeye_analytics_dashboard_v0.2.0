@@ -38,7 +38,6 @@ class SafeJSONEncoder(json.JSONEncoder):
 
 # Import our custom modules
 sys.path.append(os.path.join(os.path.dirname(__file__), 'Sales forecasting'))
-sys.path.append(os.path.join(os.path.dirname(__file__), 'sentimental analysis'))
 
 # Import unified analytics modules
 try:
@@ -55,32 +54,43 @@ except ImportError:
         def calculate_metrics(self, recent_days, product_id):
             return {"historical_avg": 120, "recent_sales": 94, "performance_change": -21.3}
 
-# Import your exact original Hugging Face sentiment analysis code
-try:
-    from Sentiment_analysis_original import get_sentiment
-    print("✅ Your original Hugging Face sentiment analysis loaded successfully!")
-except ImportError as e:
-    print(f"⚠️  Your original Hugging Face sentiment analysis not available: {e}")
-    # Fallback to keyword-based sentiment analysis
-    def get_sentiment(text):
-        """Fallback keyword-based sentiment analysis"""
-        if pd.isna(text) or text == '':
-            return 'neutral'
+# Step 1: Install required libraries (only run once)
+# pip install transformers torch
+
+# Step 2: Import necessary library
+from transformers import pipeline
+
+# Step 3: Load the sentiment analysis pipeline using a pre-trained model
+sentiment_pipeline = pipeline("sentiment-analysis")
+
+def get_sentiment(text):
+    """Get sentiment analysis using the working Hugging Face code"""
+    if pd.isna(text) or text == '' or str(text).strip() == '':
+        return 'neutral'
+    
+    try:
+        text_str = str(text).strip()
         
-        # Enhanced keyword-based sentiment analysis
-        text_lower = str(text).lower()
-        positive_words = ['excellent', 'great', 'amazing', 'perfect', 'love', 'good', 'best', 'wonderful', 'fantastic', 'awesome', 'brilliant', 'outstanding', 'superb', 'marvelous', 'delightful', 'pleased', 'satisfied', 'happy', 'impressed', 'recommend', 'quality', 'value', 'worth', 'buy', 'purchase', 'again', 'excellent', 'perfect', 'amazing', 'love', 'fantastic', 'wonderful', 'brilliant', 'outstanding', 'superb', 'marvelous', 'delightful', 'pleased', 'satisfied', 'happy', 'impressed', 'recommend', 'quality', 'value', 'worth', 'buy', 'purchase', 'again']
-        negative_words = ['terrible', 'awful', 'bad', 'worst', 'hate', 'poor', 'disappointed', 'horrible', 'useless', 'waste', 'money', 'regret', 'avoid', 'never', 'again', 'broken', 'defective', 'damaged', 'slow', 'unreliable', 'cheap', 'flimsy', 'disappointing', 'frustrated', 'angry', 'upset', 'terrible', 'awful', 'bad', 'worst', 'hate', 'poor', 'disappointed', 'horrible', 'useless', 'waste', 'money', 'regret', 'avoid', 'never', 'again', 'broken', 'defective', 'damaged', 'slow', 'unreliable', 'cheap', 'flimsy', 'disappointing', 'frustrated', 'angry', 'upset']
+        # Perform sentiment analysis using the pre-trained pipeline
+        result = sentiment_pipeline(text_str)
         
-        positive_count = sum(1 for word in positive_words if word in text_lower)
-        negative_count = sum(1 for word in negative_words if word in text_lower)
+        # Extract the predicted sentiment and confidence score
+        predicted_sentiment = result[0]['label']
+        confidence_score = result[0]['score']
         
-        if positive_count > negative_count:
+        # Map the model labels to our labels with confidence threshold
+        # The default model uses 'POSITIVE' and 'NEGATIVE' labels
+        if 'POSITIVE' in predicted_sentiment and confidence_score > 0.8:
             return 'positive'
-        elif negative_count > positive_count:
+        elif 'NEGATIVE' in predicted_sentiment and confidence_score > 0.8:
             return 'negative'
         else:
+            # If confidence is low or moderate, classify as neutral
             return 'neutral'
+            
+    except Exception as e:
+        print(f"Error in sentiment analysis: {e}")
+        return "neutral"
 
 # Import advanced AI models
 try:
@@ -158,7 +168,8 @@ def upload_dataset():
                 'Product Name': 'product_name', 
                 'Product Category': 'product_category',
                 'Rating': 'rating',
-                'Reviews': 'review'  # Map 'Reviews' to 'review'
+                'Reviews': 'review',  # Map 'Reviews' to 'review'
+                'Date': 'date'  # Map 'Date' to 'date'
             }
             
             # Apply column mapping
@@ -170,6 +181,7 @@ def upload_dataset():
             if 'review' in sentiment_data.columns:
                 print("Processing sentiment analysis...")
                 sentiment_data['sentiment'] = sentiment_data['review'].apply(get_sentiment)
+                print("Sentiment analysis completed!")
             
             # Ensure required columns exist
             required_columns = ['product_id', 'product_name', 'product_category', 'rating', 'review']
@@ -193,9 +205,6 @@ def upload_dataset():
                 sentiment_data['Unit Price'] = np.random.uniform(10, 500, len(sentiment_data))
             if 'Total Revenue' not in sentiment_data.columns:
                 sentiment_data['Total Revenue'] = sentiment_data['Units Sold'] * sentiment_data['Unit Price']
-            if 'date' not in sentiment_data.columns:
-                dates = pd.date_range(start='2024-01-01', periods=len(sentiment_data), freq='D')
-                sentiment_data['date'] = dates
             
             print(f"✅ Dataset loaded successfully: {len(sentiment_data)} records")
             
@@ -1589,34 +1598,39 @@ def generate_intelligent_solution(review_text, category_group):
     """Generate intelligent solutions using BERT-based analysis"""
     
     try:
-        # Import the sentiment pipeline from the original module
-        from Sentiment_analysis_original import sentiment_pipeline
+        # Use the get_sentiment function for consistent sentiment analysis
+        sentiment = get_sentiment(review_text)
         
-        # Use BERT-based sentiment analysis to understand the problem better
-        if sentiment_pipeline is not None:
-            # Analyze sentiment and extract key issues
-            sentiment_result = sentiment_pipeline(review_text)
-            sentiment_score = sentiment_result[0]['score']
-            sentiment_label = sentiment_result[0]['label']
-            
-            # Generate context-aware solutions based on sentiment analysis
-            if sentiment_label == 'NEGATIVE' and sentiment_score > 0.8:
-                # High confidence negative sentiment - serious problem
-                return generate_serious_problem_solution(review_text, category_group)
-            elif sentiment_label == 'NEGATIVE' and sentiment_score > 0.6:
-                # Moderate negative sentiment
-                return generate_moderate_problem_solution(review_text, category_group)
-            else:
-                # Neutral or mixed sentiment
-                return generate_neutral_problem_solution(review_text, category_group)
+        # Generate context-aware solutions based on sentiment analysis
+        if sentiment == 'negative':
+            # Negative sentiment - serious problem
+            return generate_serious_problem_solution(review_text, category_group)
+        elif sentiment == 'positive':
+            # Positive sentiment
+            return generate_positive_solution(review_text, category_group)
         else:
-            # Fallback to keyword-based analysis
-            return generate_keyword_based_solution(review_text, category_group)
+            # Neutral sentiment
+            return generate_neutral_problem_solution(review_text, category_group)
             
     except Exception as e:
         print(f"Error in intelligent solution generation: {e}")
         return generate_keyword_based_solution(review_text, category_group)
 
+
+def generate_positive_solution(review_text, category_group):
+    """Generate solutions for positive feedback"""
+    try:
+        positive_solutions = [
+            "Thank you for your positive feedback! We're glad you're satisfied with our product.",
+            "We appreciate your positive review! Your feedback helps us improve our services.",
+            "Great to hear you're happy with our product! We'll continue to maintain this quality.",
+            "Thank you for the positive feedback! We're committed to delivering excellent products.",
+            "We're delighted that you're satisfied! Your positive review motivates our team."
+        ]
+        import random
+        return random.choice(positive_solutions)
+    except Exception as e:
+        return "Thank you for your positive feedback!"
 
 def generate_serious_problem_solution(review_text, category_group):
     """Generate precise solutions for serious problems (high negative sentiment)"""
