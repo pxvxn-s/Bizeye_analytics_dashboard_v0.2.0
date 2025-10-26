@@ -37,7 +37,6 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import PredictiveAnalysis from "layouts/predictive-analysis";
 import SignIn from "layouts/authentication/sign-in";
@@ -65,14 +64,6 @@ const routes = [
     icon: <Icon fontSize="small">analytics</Icon>,
     route: "/predictive-analysis",
     component: <PredictiveAnalysis />,
-  },
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
   },
   {
     type: "collapse",

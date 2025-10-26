@@ -17,63 +17,47 @@ Coded by www.creative-tim.com
 import likith from "assets/profile-pictures/likith.png";
 import marie from "assets/images/marie.jpg";
 import pvn from "assets/profile-pictures/doge.jpeg";
-import team3 from "assets/images/team-3.jpg";
 import Pushkara from "assets/profile-pictures/pushkar.jpeg";
 
 export default [
   {
     image: likith,
     name: "Likith Kumar V",
-    description: "Hi! I need more information..",
+    description: "CFO/ Co-founder",
     action: {
       type: "internal",
       route: "/pages/profile/profile-overview",
       color: "info",
-      label: "reply",
-    },
-  },
-  {
-    image: marie,
-    name: "Tejaswini",
-    description: "Awesome work, can you..",
-    action: {
-      type: "internal",
-      route: "/pages/profile/profile-overview",
-      color: "info",
-      label: "reply",
     },
   },
   {
     image: pvn,
     name: "Pavan Kumar",
-    description: "About files I can..",
+    description: "COO/ Co-founder",
     action: {
       type: "internal",
       route: "/pages/profile/profile-overview",
       color: "info",
-      label: "reply",
+    },
+  },
+  {
+    image: marie,
+    name: "Tejaswini",
+    description: "Angel Investor",
+    action: {
+      type: "internal",
+      route: "/pages/profile/profile-overview",
+      color: "info",
     },
   },
   {
     image: Pushkara,
     name: "Pushkara",
-    description: "Have a great afternoon..",
+    description: "CMO/ Co-founder",
     action: {
       type: "internal",
       route: "/pages/profile/profile-overview",
       color: "info",
-      label: "reply",
-    },
-  },
-  {
-    image: team3,
-    name: "Asha",
-    description: "Hi! I need more information..",
-    action: {
-      type: "internal",
-      route: "/pages/profile/profile-overview",
-      color: "info",
-      label: "reply",
     },
   },
 ];

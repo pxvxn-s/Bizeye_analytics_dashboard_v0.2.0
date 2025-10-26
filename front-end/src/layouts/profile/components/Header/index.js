@@ -107,37 +107,11 @@ function Header({ children }) {
                 CEO / Founder
               </MDTypography>
               <br></br>
-              <Link style={{ fontSize: "14px", fontWeight: "bold" }}>bizeye.com</Link>
+              <Link style={{ fontSize: "14px", fontWeight: "bold" }}>bizeye.in</Link>
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={4} sx={{ ml: "auto" }}>
             <AppBar position="static">
-              <Tabs orientation={tabsOrientation} value={tabValue} onChange={handleSetTabValue}>
-                <Tab
-                  label="App"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      home
-                    </Icon>
-                  }
-                />
-                <Tab
-                  label="Message"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      email
-                    </Icon>
-                  }
-                />
-                <Tab
-                  label="Settings"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      settings
-                    </Icon>
-                  }
-                />
-              </Tabs>
             </AppBar>
           </Grid>
         </Grid>
